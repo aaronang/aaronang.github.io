@@ -9,8 +9,15 @@ a {
 .resume, .github, .linkedin {
     font-size: 2.4rem;
     font-weight: 500;
+    display: block;
 }
 
-.github {
-    margin: 0 10rem;
+@media (min-width: 40.0rem) {
+    .resume, .github, .linkedin {
+        display: initial;
+    }
+
+    .github {
+        margin: 0 10rem;
+    }
 }
