@@ -9,7 +9,7 @@ a {
 .resume, .github, .linkedin {
     font-size: 2.4rem;
     font-weight: 500;
-    border-bottom: 2px white solid;
+    border-bottom: 2px $color-primary solid;
     padding-bottom: 0.5rem;
     &:hover {
         border-bottom: 2px $color-secondary solid;

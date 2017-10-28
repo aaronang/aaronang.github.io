@@ -8,13 +8,13 @@ html {
   font-size: 62.5%; }
 
 body {
-  color: #FFFFFF;
+  color: #a2a2a2;
   font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   font-size: 1.6em;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: .01em;
   line-height: 1.6;
-  background: linear-gradient(to bottom right, #22C3CD, #6C4ABA);
+  background: #FFFFFF;
   margin: 0;
   padding: 0 2rem; }
 
@@ -60,22 +60,29 @@ h1 {
 
 h2 {
   font-size: 2.4rem;
-  font-weight: 500;
   line-height: 1.25; }
 
+.title {
+  background: -webkit-linear-gradient(to right, #31F29F, #4FC4F6);
+  background: linear-gradient(to right, #31F29F, #4FC4F6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-style: italic;
+  text-transform: uppercase; }
+
 a {
-  color: #FFFFFF;
+  color: #a2a2a2;
   text-decoration: none; }
   a:hover {
-    color: #22C3CD; }
+    color: #31F29F; }
 
 .resume, .github, .linkedin {
   font-size: 2.4rem;
   font-weight: 500;
-  border-bottom: 2px white solid;
+  border-bottom: 2px #a2a2a2 solid;
   padding-bottom: 0.5rem; }
   .resume:hover, .github:hover, .linkedin:hover {
-    border-bottom: 2px #22C3CD solid; }
+    border-bottom: 2px #31F29F solid; }
 
 .center {
   align-items: center;

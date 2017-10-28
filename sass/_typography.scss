@@ -2,7 +2,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 2rem;
     font-weight: 400;
-	font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+    font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
 h1 {
@@ -13,6 +13,14 @@ h1 {
 
 h2 {
     font-size: 2.4rem;
-    font-weight: 500;
     line-height: 1.25;
+}
+
+.title {
+    background: -webkit-linear-gradient(to right, $color-secondary, $color-tertiary);
+	background: linear-gradient(to right, $color-secondary, $color-tertiary);
+	-webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-style: italic;
+    text-transform: uppercase;
 }

@@ -13,10 +13,10 @@ body {
 	color: $color-primary;
 	font-family: 'Raleway', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 	font-size: 1.6em;
-	font-weight: 300;
+	font-weight: 400;
 	letter-spacing: .01em;
 	line-height: 1.6;
-	background: linear-gradient(to bottom right, $color-secondary, $color-tertiary);
+	background: $color-background;
 	margin: 0;
 	padding: 0 2rem;
 }
