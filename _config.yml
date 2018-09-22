@@ -3,7 +3,7 @@ title_left    : "Aaron Ang"
 title_right   : "" # default: ""
 description   : "Software engineer with a passion for open source software."
 keywords      : "software engineering, open source"
-url           : https://aaronang.github.io/ # site url
+url           : https://aaronang.github.io # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "" # image uri like logo/cover image for site seo
 
