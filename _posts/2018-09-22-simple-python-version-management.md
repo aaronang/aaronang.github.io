@@ -95,7 +95,7 @@ Python 3.7.0
 ```
 
 > Note: A `.python-version` file, which stores the Python version as a string,
-> is created when using the `pyenv local` command.
+> is created in the root of the project when using the `pyenv local` command.
 
 ## Closing Words
 
@@ -103,4 +103,5 @@ pyenv is just a solution that works well for me. In the research community, a
 very popular way of installing Python is using
 [Anaconda](https://www.anaconda.com/), which comes with
 [Conda](https://conda.io/docs/) --- a package, dependency and environment
-management tool. I strongly recommend you to dig deeper in pyenv or Conda.
+management tool. I strongly recommend you to dig deeper in pyenv's or Conda's
+facility to manage multiple Python versions.
