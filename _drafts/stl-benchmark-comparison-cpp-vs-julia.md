@@ -69,5 +69,5 @@ benchmark comparisons to come.
 
 Hope you enjoyed the article! Feel free to reach out to
 [me](https://twitter.com/_aaronang) with comments, questions, and feedback. The
-code that was used for the benchmark can be found on
-[GitHub](https://github.com/aaronang/stl-benchmark).
+code that was used for the benchmark and all the steps to reproduce the
+experiment can be found on [GitHub](https://github.com/aaronang/stl-benchmark).
