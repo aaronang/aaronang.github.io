@@ -75,3 +75,32 @@ Hope you enjoyed the article! Feel free to reach out to
 [me](https://twitter.com/_aaronang) with comments, questions, and feedback. The
 code that was used for the benchmark and all the steps to reproduce the
 experiment can be found on [GitHub](https://github.com/aaronang/stl-benchmark).
+
+## *Update*
+
+I have received some feedback on the C++ implementation. The biggest problem with the C++ implementation was that it read one float at the time while it can actually read all floats required to construct a triangle. After this modification it turns out that C++ is twice as fast!
+
+```console
+$ ./stl_benchmark
+2018-10-06 12:35:31
+Running ./stl_benchmark
+Run on (8 X 2300 MHz CPU s)
+CPU Caches:
+  L1 Data 32K (x4)
+  L1 Instruction 32K (x4)
+  L2 Unified 262K (x4)
+  L3 Unified 6291K (x1)
+--------------------------------------------------
+Benchmark           Time           CPU Iterations
+--------------------------------------------------
+ParseStl       429234 ns     409210 ns       1729
+```
+
+In microseconds:
+
+| Language | Time       |
+|----------|------------|
+| C++      | 409.210 μs |
+| Julia    | 815.896 μs |
+
+Thank you all for the feedback! It was a fun and educational ride 😁
