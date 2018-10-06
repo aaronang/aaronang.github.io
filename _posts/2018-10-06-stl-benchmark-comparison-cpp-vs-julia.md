@@ -1,8 +1,7 @@
 ---
 layout: post
 title: "STL Benchmark Comparison: C++ vs. Julia"
-description: "Pyenv is a Python version management tool that enables the
-developer to have multiple Python versions installed."
+description: "An experiment comparing C++ versus Julia from the performance perspective when parsing binary STL files."
 keywords: "c++, julia, stl, benchmark"
 ---
 
