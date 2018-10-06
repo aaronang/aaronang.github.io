@@ -21,7 +21,7 @@ of my work is related to computational geometry nowadays. The
 [STL file format](https://en.wikipedia.org/wiki/STL_(file_format)) is a common
 input when dealing with 3D models, represented as a collection of triangles.
 
-## Benchmark
+## Results
 
 In this experiment, I tried my best keeping the implementation in C++ and Julia
 as identical as possible. For example, it would be unfair to compare a
