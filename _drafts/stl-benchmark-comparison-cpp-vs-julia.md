@@ -17,11 +17,12 @@ Today, I would like to discuss my first experiment comparing C++ versus Julia
 from the performance perspective. I am doing this comparison because I am not
 very excited about C++ and hear many good stories about Julia with respect to
 performance and productivity. I am using STL parsing as the benchmark since most
-of my work is related to computational geometry nowadays. The STL file format is
-a common input when dealing with 3D models, represented as a collection of
-triangles.
+of my work is related to computational geometry nowadays. The [STL file format](https://en.wikipedia.org/wiki/STL_(file_format)) is a common input when
+dealing with 3D models, represented as a collection of triangles.
 
-## Results
+## Benchmark
+
+In this experiment, I tried my best keeping the implementation in C++ and Julia as identical as possible. It helps that there is really just one intuitive solution for parsing an STL file because it's just a list of triangles, normals, and vertices. The results are shown below.
 
 C++:
 
@@ -38,7 +39,7 @@ CPU Caches:
 --------------------------------------------------
 Benchmark           Time           CPU Iterations
 --------------------------------------------------
-ParseStl      1857063 ns    1830176 ns        374
+ParseStl      1775819 ns    1747459 ns        381
 ```
 
 Julia:
@@ -52,15 +53,21 @@ Converting the numbers to microseconds:
 
 | Language | Time        |
 |----------|-------------|
-| C++      | 1830.176 μs |
+| C++      | 1747.459 μs |
 | Julia    |  815.896 μs |
 
-The benchmark results indicate that Julia is faster than C++ when parsing the
+The benchmark results indicate that Julia is 2 times faster than C++ when parsing the
 [NIST Additive Manufacturing Test Artifact](https://www.nist.gov/el/intelligent-systems-division-73500/production-systems-group/nist-additive-manufacturing-test).
 
 ## Conclusion
 
-Developing software in C++ does not necessarily result in the fastest program.
-While this is only my first week experimenting with Julia, I am very impressed
-with the fact that Julia is able to achieve faster execution times than C++ when
-parsing an STL file.
+Developing software in C++ does not necessarily result in the fastest program. I
+am very impressed with the fact that one of my first Julia programs is able to
+achieve 2 times faster execution times than C++ when parsing a binary STL file.
+For now, I will remain slightly skeptic and will keep experimenting --- more
+benchmark comparisons to come.
+
+Hope you enjoyed the article! Feel free to reach out to
+[me](https://twitter.com/_aaronang) with comments, questions, and feedback. The
+code that was used for the benchmark can be found on
+[GitHub](https://github.com/aaronang/stl-benchmark).
