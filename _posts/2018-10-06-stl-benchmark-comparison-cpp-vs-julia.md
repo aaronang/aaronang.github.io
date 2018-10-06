@@ -107,9 +107,8 @@ Thank you all for the feedback! It was a fun and educational ride. Hopefully som
 
 ## *Update 2*
 
-I added a Python implementation for fun just to put everything in perspective.
-Hopefully, I didn't make any disastrous implementation mistakes in Python. If I
-did, please let me know.
+I added a Python implementation for fun. Hopefully, I didn't make any disastrous
+implementation mistakes in Python. If I did, please let me know.
 
 The Python benchmark results:
 
