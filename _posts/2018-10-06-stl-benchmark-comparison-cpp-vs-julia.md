@@ -76,9 +76,9 @@ Hope you enjoyed the article! Feel free to reach out to
 code that was used for the benchmark and all the steps to reproduce the
 experiment can be found on [GitHub](https://github.com/aaronang/stl-benchmark).
 
-## *Update 1*
+### Update 1
 
-I have received some feedback on the C++ implementation. The biggest problem with the C++ implementation was that it read one float at a time while it could actually read all floats to construct a triangle in one go. After this modification it turns out that C++ is twice as fast!
+I have received some feedback on the C++ implementation. The biggest problem with the C++ implementation was that it read one float at a time while it could actually read all floats to construct a triangle in one go. After this modification, it turns out that C++ is twice as fast!
 
 ```console
 $ ./stl_benchmark
@@ -103,9 +103,9 @@ In microseconds:
 | C++      | 409.210 μs |
 | Julia    | 815.896 μs |
 
-Thank you all for the feedback! It was a fun and educational ride. Hopefully someone is able to spot potential improvements in the Julia implementation.
+Thank you all for the feedback! It was a fun and educational ride. Hopefully, someone is able to spot potential improvements in the Julia implementation.
 
-## *Update 2*
+### Update 2
 
 I added a Python implementation for fun. Hopefully, I didn't make any disastrous
 implementation mistakes in Python. If I did, please let me know.
