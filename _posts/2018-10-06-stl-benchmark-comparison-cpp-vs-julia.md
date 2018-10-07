@@ -103,7 +103,7 @@ In microseconds:
 | C++      | 409.210 μs |
 | Julia    | 815.896 μs |
 
-Thank you all for the feedback! It was a fun and educational ride. Hopefully, someone is able to spot potential improvements in the Julia implementation.
+Thank you all for the feedback! It was a fun and educational ride. The lesson here is that C++ is more performant than Julia when optimized. However, when a newcomer to C++ and Julia writes software, it is not unlikely that the Julia implementation will be as performant as the C++ implementation. In other words, I think more knowledge is required to write performant C++ than performant Julia.
 
 ### Update 2
 
