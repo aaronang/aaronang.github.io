@@ -124,3 +124,29 @@ Putting everything together:
 | C++      | 409.210 μs |
 | Julia    | 815.896 μs |
 | Python   | 25150.9 μs |
+
+### Update 3
+
+[Simon Danisch](https://twitter.com/SimonDanisch) contributed to the Julia code
+and made it 4 times faster using Julia's C interface. I think it is kind of
+cheating but it does showcase that you can optimize Julia to such a point that
+it could be on par with the C++ implementation. It also made the Julia
+implementation much simpler. The new results, shown below, indicate that Julia
+is twice as fast again but I am pretty sure that the C++ implementation can
+still be optimized which will probably make it either faster or just as fast.
+
+| Language | Time       |
+|----------|------------|
+| C++      | 409.210 μs |
+| Julia    | 211.641 μs |
+| Python   | 25150.9 μs |
+
+The lesson of this experiment is that a newcomer is very likely to write Julia
+code that is more performant than the C++ code. However, when enough time and
+effort is spent on optimizing both implementations, I think Julia can get fast
+enough where other factors like productivity and library support will probably
+play a more important role in deciding what language to go with.
+
+Once again, I would like to thank the community for providing a lot of
+insightful feedback. I never imagined learning so much from publishing
+such a small scale experiment.
