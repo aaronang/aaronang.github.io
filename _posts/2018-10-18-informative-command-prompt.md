@@ -6,10 +6,13 @@ keywords: "zsh, prompt, git"
 ---
 
 <style type="text/css">
-.asciicast {
-    text-align: center;
-    padding-top: 20px !important;
-}
+    .asciicast {
+        text-align: center;
+        padding-top: 20px !important;
+    }
+    #spaceship-prompt {
+        border-bottom: none;
+    }
 </style>
 
 Nowadays, it is hard to imagine software development without Git. However, for
@@ -101,7 +104,11 @@ of the prompt when necessary.
    > to just ignore this symbol by setting `SPACESHIP_GIT_SYMBOL=""` in
    > `~/.zshrc` [**before** sourcing the theme](https://github.com/aaronang/dotfiles/blob/61f71d6a0873715342896741e3f50e68c43d8626/.zshrc#L5).
 
-   [![](https://user-images.githubusercontent.com/10276208/36086434-5de52ace-0ff2-11e8-8299-c67f9ab4e9bd.gif)](https://github.com/denysdovhan/spaceship-prompt#----website-----install-----features-----options-----api--)
+   <a id="spaceship-prompt" href="https://github.com/denysdovhan/spaceship-prompt#----website-----install-----features-----options-----api--">
+   <img
+   src="https://user-images.githubusercontent.com/10276208/36086434-5de52ace-0ff2-11e8-8299-c67f9ab4e9bd.gif"
+   />
+   </a>
 
 4. The last step is to change the Zsh theme. Set `ZSH_THEME="spaceship"` in
    `~/.zshrc`. The `.zshrc` file is loaded on startup by Zsh.
