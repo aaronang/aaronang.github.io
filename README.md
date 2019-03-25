@@ -1,5 +1,5 @@
 # aaronang.github.io
 
 ```console
-$ jekyll serve --drafts
+$ bundle exec jekyll serve --incremental --drafts
 ```
