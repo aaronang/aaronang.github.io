@@ -231,13 +231,18 @@ img, video {
   --tw-backdrop-sepia: ;
 }
 
-.m-auto {
-  margin: auto;
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.mx-4 {
-  margin-left: 1rem;
-  margin-right: 1rem;
+.my-20 {
+  margin-top: 5rem;
+  margin-bottom: 5rem;
+}
+
+.mt-20 {
+  margin-top: 5rem;
 }
 
 .mt-32 {
@@ -252,21 +257,102 @@ img, video {
   display: flex;
 }
 
-.max-w-2xl {
+.h-40 {
+  height: 10rem;
+}
+
+.w-40 {
+  width: 10rem;
+}
+
+.max-w-\[42rem\] {
   max-width: 42rem;
 }
 
-.max-w-3xl {
-  max-width: 48rem;
+.max-w-none {
+  max-width: none;
 }
 
-.max-w-\[44rem\] {
-  max-width: 44rem;
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.gap-2 {
+  gap: .5rem;
+}
+
+.gap-4 {
+  gap: 1rem;
+}
+
+.gap-6 {
+  gap: 1.5rem;
+}
+
+.rounded {
+  border-radius: .25rem;
+}
+
+.rounded-lg {
+  border-radius: .5rem;
+}
+
+.border-2 {
+  border-width: 2px;
+}
+
+.border-y {
+  border-top-width: 1px;
+  border-bottom-width: 1px;
+}
+
+.border-solid {
+  border-style: solid;
+}
+
+.border-slate-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
+}
+
+.border-yellow-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(202 138 4 / var(--tw-border-opacity));
+}
+
+.bg-yellow-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 249 195 / var(--tw-bg-opacity));
 }
 
 .px-4 {
   padding-left: 1rem;
   padding-right: 1rem;
+}
+
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.pb-\[0\.375rem\] {
+  padding-bottom: .375rem;
+}
+
+.pb-\[0\.875rem\] {
+  padding-bottom: .875rem;
+}
+
+.pt-2 {
+  padding-top: .5rem;
+}
+
+.pt-4 {
+  padding-top: 1rem;
 }
 
 .font-heading {
@@ -278,8 +364,21 @@ img, video {
   line-height: 2rem;
 }
 
+.text-sm {
+  font-size: .875rem;
+  line-height: 1.25rem;
+}
+
 .font-extrabold {
   font-weight: 800;
+}
+
+.font-medium {
+  font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {
@@ -337,6 +436,34 @@ img, video {
   -webkit-background-clip: text;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.hover\:border-highlight:hover {
+  --tw-border-opacity: 1;
+  border-color: rgb(254 81 150 / var(--tw-border-opacity));
+}
+
+.hover\:text-highlight:hover {
+  --tw-text-opacity: 1;
+  color: rgb(254 81 150 / var(--tw-text-opacity));
+}
+
+.hover\:underline:hover {
+  text-decoration-line: underline;
+}
+
+.hover\:decoration-highlight:hover {
+  text-decoration-color: #fe5196;
+}
+
+.hover\:underline-offset-2:hover {
+  text-underline-offset: 2px;
+}
+
+@media (width >= 640px) {
+  .sm\:flex-row {
+    flex-direction: row;
+  }
 }
 
 /*# sourceMappingURL=index.61d3354a.css.map */
