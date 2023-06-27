@@ -257,6 +257,14 @@ img, video {
   margin-top: 2rem;
 }
 
+.mt-1 {
+  margin-top: .25rem;
+}
+
+.mt-2 {
+  margin-top: .5rem;
+}
+
 .flex {
   display: flex;
 }
@@ -267,10 +275,6 @@ img, video {
 
 .w-40 {
   width: 10rem;
-}
-
-.max-w-2xl {
-  max-width: 42rem;
 }
 
 .max-w-none {
@@ -369,11 +373,6 @@ img, video {
 .text-sm {
   font-size: .875rem;
   line-height: 1.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .font-bold {
@@ -488,6 +487,11 @@ img, video {
   --tw-shadow: 0 10px 15px -3px #0000001a, 0 4px 6px -4px #0000001a;
   --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.hover\:shadow-rose-500\/50:hover {
+  --tw-shadow-color: #f43f5e80;
+  --tw-shadow: var(--tw-shadow-colored);
 }
 
 @media (width >= 640px) {
