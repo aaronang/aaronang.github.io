@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        'highlight': '#FE5196'
+      },
       fontFamily: {
         'sans': ['Mona Sans', ...defaultTheme.fontFamily.sans],
         'heading': ['Hubot Sans', ...defaultTheme.fontFamily.sans],
