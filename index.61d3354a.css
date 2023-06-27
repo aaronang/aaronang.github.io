@@ -12,7 +12,7 @@ html {
   tab-size: 4;
   font-feature-settings: normal;
   font-variation-settings: normal;
-  font-family: Mona Sans, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  font-family: Satoshi, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
   line-height: 1.5;
 }
 
@@ -241,6 +241,10 @@ img, video {
   margin-bottom: 5rem;
 }
 
+.mr-1 {
+  margin-right: .25rem;
+}
+
 .mt-20 {
   margin-top: 5rem;
 }
@@ -334,25 +338,19 @@ img, video {
   padding-right: 1rem;
 }
 
+.py-2 {
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-
-.pb-\[0\.375rem\] {
-  padding-bottom: .375rem;
-}
-
-.pb-\[0\.875rem\] {
-  padding-bottom: .875rem;
-}
-
-.pt-2 {
-  padding-top: .5rem;
-}
-
-.pt-4 {
-  padding-top: 1rem;
 }
 
 .font-heading {
@@ -369,16 +367,20 @@ img, video {
   line-height: 1.25rem;
 }
 
+.font-\[450\] {
+  font-weight: 450;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
 .font-extrabold {
   font-weight: 800;
 }
 
 .font-medium {
   font-weight: 500;
-}
-
-.font-semibold {
-  font-weight: 600;
 }
 
 .uppercase {
@@ -394,9 +396,23 @@ img, video {
   color: rgb(30 41 59 / var(--tw-text-opacity));
 }
 
+.underline {
+  text-decoration-line: underline;
+}
+
+.underline-offset-2 {
+  text-underline-offset: 2px;
+}
+
 .antialiased {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.transition-all {
+  transition-property: all;
+  transition-duration: .15s;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
 
 @font-face {
@@ -418,7 +434,6 @@ img, video {
   font-family: Satoshi;
   font-weight: 100 900;
   font-style: normal;
-  font-stretch: 75% 125%;
   src: url("Satoshi-Variable.362db0b9.ttf") format("truetype-variations");
 }
 
@@ -436,6 +451,10 @@ img, video {
   -webkit-background-clip: text;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.noise {
+  background: url("noise-transparent.9b94ba61.png");
 }
 
 .hover\:border-highlight:hover {
