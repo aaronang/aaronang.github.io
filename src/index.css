@@ -21,7 +21,6 @@
   font-family: "Satoshi";
   font-weight: 100 900;
   font-style: normal;
-  font-stretch: 75% 125%;
   src: url(/src/fonts/Satoshi-Variable.ttf) format("truetype-variations");
 }
 
@@ -39,4 +38,9 @@
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+.noise {
+  background: transparent url('noise-transparent.png') repeat 0 0;
+  background-repeat: repeat;
 }

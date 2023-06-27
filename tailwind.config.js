@@ -12,7 +12,7 @@ module.exports = {
         'highlight': '#FE5196'
       },
       fontFamily: {
-        'sans': ['Mona Sans', ...defaultTheme.fontFamily.sans],
+        'sans': ['Satoshi', ...defaultTheme.fontFamily.sans],
         'heading': ['Hubot Sans', ...defaultTheme.fontFamily.sans],
       }
     },
