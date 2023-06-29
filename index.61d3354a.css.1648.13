@@ -261,10 +261,6 @@ img, video {
   margin-top: 1.5rem;
 }
 
-.block {
-  display: block;
-}
-
 .flex {
   display: flex;
 }
@@ -273,12 +269,12 @@ img, video {
   height: 10rem;
 }
 
-.h-full {
-  height: 100%;
-}
-
 .w-full {
   width: 100%;
+}
+
+.max-w-none {
+  max-width: none;
 }
 
 .max-w-xl {
@@ -494,8 +490,8 @@ img, video {
 }
 
 @media (width >= 640px) {
-  .sm\:max-w-\[10rem\] {
-    max-width: 10rem;
+  .sm\:w-40 {
+    width: 10rem;
   }
 
   .sm\:flex-row {
