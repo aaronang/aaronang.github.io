@@ -444,13 +444,6 @@ img, video {
 }
 
 @font-face {
-  font-family: Mona Sans;
-  font-weight: 100 900;
-  font-style: normal;
-  src: url("Mona-Sans.f3786d2a.woff2") format("woff2-variations");
-}
-
-@font-face {
   font-family: Satoshi;
   font-weight: 100 900;
   font-style: normal;
@@ -474,7 +467,7 @@ img, video {
 }
 
 .noise {
-  background: url("100-90-4.5c67d89a.png");
+  background: url("100-90-3.dd0b494d.png");
 }
 
 .hover\:scale-110:hover {
