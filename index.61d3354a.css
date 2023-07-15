@@ -261,6 +261,11 @@ img, video {
   margin-bottom: 5rem;
 }
 
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .mb-20 {
   margin-bottom: 5rem;
 }
@@ -271,6 +276,14 @@ img, video {
 
 .mt-1 {
   margin-top: .25rem;
+}
+
+.mt-10 {
+  margin-top: 2.5rem;
+}
+
+.mt-2 {
+  margin-top: .5rem;
 }
 
 .mt-20 {
@@ -335,6 +348,10 @@ img, video {
 
 .w-min {
   width: min-content;
+}
+
+.min-w-full {
+  min-width: 100%;
 }
 
 .max-w-\[12\.5rem\] {
@@ -441,6 +458,10 @@ img, video {
 
 .object-cover {
   object-fit: cover;
+}
+
+.object-left {
+  object-position: left;
 }
 
 .object-top {
@@ -633,12 +654,24 @@ img, video {
     max-width: 10rem;
   }
 
+  .sm\:scale-150 {
+    --tw-scale-x: 1.5;
+    --tw-scale-y: 1.5;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+
   .sm\:grid-cols-4 {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .sm\:flex-row {
     flex-direction: row;
+  }
+
+  .sm\:hover\:scale-\[1\.6\]:hover {
+    --tw-scale-x: 1.6;
+    --tw-scale-y: 1.6;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 }
 
