@@ -11,16 +11,10 @@
 }
 
 @font-face {
-  font-family: "Mona Sans";
-  font-weight: 100 900;
-  font-style: normal;
-  src: url(/src/fonts/Mona-Sans.woff2) format("woff2-variations");
-}
-
-@font-face {
   font-family: "Satoshi";
   font-weight: 100 900;
   font-style: normal;
+  font-stretch: 75% 125%;
   src: url(/src/fonts/Satoshi-Variable.ttf) format("truetype-variations");
 }
 
@@ -41,6 +35,6 @@
 }
 
 .noise {
-  background: transparent url('100-90-4.png') repeat 0 0;
+  background: transparent url('100-90-3.png') repeat 0 0;
   background-repeat: repeat;
 }

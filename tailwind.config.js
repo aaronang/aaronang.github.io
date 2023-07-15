@@ -9,7 +9,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'highlight': '#FE5196'
+        'highlight': '#FE5196',
+        'button': 'rgba(255, 255, 255, 0.3)'
       },
       fontFamily: {
         'sans': ['Satoshi', ...defaultTheme.fontFamily.sans],
