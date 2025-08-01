@@ -5,6 +5,7 @@ export interface Rectangle {
   width: number
   height: number
   color: string
+  frameId?: string // Optional reference to parent frame
 }
 
 export interface TextElement {
@@ -16,6 +17,23 @@ export interface TextElement {
   color: string
   fontFamily: string
   isEditing: boolean
+  frameId?: string // Optional reference to parent frame
+}
+
+export interface Frame {
+  id: string
+  x: number
+  y: number
+  width: number
+  height: number
+  backgroundColor?: string
+  borderColor?: string
+  borderWidth?: number
+  borderRadius?: number
+  opacity?: number
+  isSelected?: boolean
+  isResizing?: boolean
+  isMoving?: boolean
 }
 
 export interface Point {
@@ -35,11 +53,12 @@ export interface PanState {
   y: number
 }
 
-export type Tool = 'select' | 'rectangle' | 'text'
+export type Tool = 'select' | 'rectangle' | 'text' | 'frame'
 
 export interface CanvasState {
   rectangles: Rectangle[]
   textElements: TextElement[]
+  frames: Frame[]
   isDrawing: boolean
   drawingRect: DrawingRect | null
   startPoint: Point | null
@@ -48,4 +67,5 @@ export interface CanvasState {
   pan: PanState
   isPanning: boolean
   lastPanPoint: Point | null
+  selectedFrameId?: string
 } 
