@@ -9,6 +9,7 @@ interface Rectangle {
   height: number
   color: string
   frameId?: string
+  isSelected?: boolean
 }
 
 interface TextElement {
@@ -21,6 +22,7 @@ interface TextElement {
   fontFamily: string
   isEditing: boolean
   frameId?: string
+  isSelected?: boolean
 }
 
 interface Frame {
@@ -37,6 +39,13 @@ interface Frame {
   isSelected?: boolean
   isResizing?: boolean
   isMoving?: boolean
+}
+
+// Unified selection state
+interface SelectionState {
+  selectedRectangles: string[]
+  selectedTextElements: string[]
+  selectedFrames: string[]
 }
 
 export default function Prototype1() {
@@ -59,6 +68,16 @@ export default function Prototype1() {
   const [isResizingFrame, setIsResizingFrame] = useState(false)
   const [resizeHandle, setResizeHandle] = useState<string | null>(null)
   const [resizeStart, setResizeStart] = useState<{ x: number; y: number; width: number; height: number } | null>(null)
+  
+  // New unified selection state
+  const [selection, setSelection] = useState<SelectionState>({
+    selectedRectangles: [],
+    selectedTextElements: [],
+    selectedFrames: []
+  })
+  
+
+  
   const canvasRef = useRef<HTMLDivElement>(null)
   const editingTextRef = useRef<HTMLInputElement>(null)
 
@@ -86,6 +105,66 @@ export default function Prototype1() {
   useEffect(() => {
     console.log('Text elements changed:', textElements)
   }, [textElements])
+
+  // Helper function to clear all selections
+  const clearSelection = useCallback(() => {
+    setSelection({
+      selectedRectangles: [],
+      selectedTextElements: [],
+      selectedFrames: []
+    })
+    
+    // Clear individual object selection states
+    setRectangles(prev => prev.map(rect => ({ ...rect, isSelected: false })))
+    setTextElements(prev => prev.map(text => ({ ...text, isSelected: false })))
+    setFrames(prev => prev.map(frame => ({ ...frame, isSelected: false })))
+    setSelectedFrameId(null)
+  }, [])
+
+  // Helper function to select an object
+  const selectObject = useCallback((type: 'rectangle' | 'text' | 'frame', id: string, clearOthers: boolean = true) => {
+    if (clearOthers) {
+      clearSelection()
+    }
+    
+    setSelection(prev => ({
+      selectedRectangles: type === 'rectangle' ? [...prev.selectedRectangles, id] : prev.selectedRectangles,
+      selectedTextElements: type === 'text' ? [...prev.selectedTextElements, id] : prev.selectedTextElements,
+      selectedFrames: type === 'frame' ? [...prev.selectedFrames, id] : prev.selectedFrames
+    }))
+    
+    // Update individual object selection states
+    if (type === 'rectangle') {
+      setRectangles(prev => prev.map(rect => 
+        rect.id === id ? { ...rect, isSelected: true } : rect
+      ))
+    } else if (type === 'text') {
+      setTextElements(prev => prev.map(text => 
+        text.id === id ? { ...text, isSelected: true } : text
+      ))
+    } else if (type === 'frame') {
+      setFrames(prev => prev.map(frame => 
+        frame.id === id ? { ...frame, isSelected: true } : frame
+      ))
+      setSelectedFrameId(id)
+    }
+  }, [clearSelection])
+
+  // Helper function to check if a point is inside a rectangle
+  const isPointInRectangle = useCallback((point: { x: number; y: number }, rect: { x: number; y: number; width: number; height: number }) => {
+    return point.x >= rect.x && point.x <= rect.x + rect.width &&
+           point.y >= rect.y && point.y <= rect.y + rect.height
+  }, [])
+
+  // Helper function to check if a point is near a text element (approximate bounding box)
+  const isPointNearText = useCallback((point: { x: number; y: number }, text: TextElement) => {
+    // Create an approximate bounding box for text
+    const textWidth = text.text.length * text.fontSize * 0.6 // Rough estimate
+    const textHeight = text.fontSize * 1.2 // Rough estimate
+    
+    return point.x >= text.x && point.x <= text.x + textWidth &&
+           point.y >= text.y - textHeight && point.y <= text.y + textHeight
+  }, [])
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     if (!canvasRef.current) return
@@ -139,7 +218,7 @@ export default function Prototype1() {
       if (selectedFrameId) {
         const frame = frames.find(f => f.id === selectedFrameId)
         if (frame) {
-          const handleSize = 8 / zoom // Handle size in canvas coordinates
+          const handleSize = 16 / zoom // Handle size in canvas coordinates
           const handles = getResizeHandles(frame, handleSize)
           
           const clickedHandle = Object.entries(handles).find(([_key, handle]) => 
@@ -150,21 +229,75 @@ export default function Prototype1() {
           if (clickedHandle) {
             setIsResizingFrame(true)
             setResizeHandle(clickedHandle[0])
-            setResizeStart({ x, y, width: frame.width, height: frame.height })
+            setResizeStart({ 
+              x: frame.x + frame.width, 
+              y: frame.y + frame.height, 
+              width: frame.width, 
+              height: frame.height 
+            })
             return
           }
         }
       }
       
-      // Check if clicking on a frame
-      const clickedFrame = frames.find(frame => 
-        x >= frame.x && x <= frame.x + frame.width &&
-        y >= frame.y && y <= frame.y + frame.height
+      // Get free elements (not in frames)
+      const freeElements = getElementsNotInFrame()
+      
+      // Check if clicking on a rectangle
+      const clickedRectangle = freeElements.rectangles.find(rect => 
+        isPointInRectangle({ x, y }, rect)
       )
       
-      if (clickedFrame) {
+      // Check if clicking on a text element
+      const clickedText = freeElements.textElements.find(text => 
+        isPointNearText({ x, y }, text)
+      )
+      
+      // Check if clicking on a frame
+      const clickedFrame = frames.find(frame => 
+        isPointInRectangle({ x, y }, frame)
+      )
+      
+      // Check if clicking on elements inside frames
+      let clickedFrameElement: { type: 'rectangle' | 'text'; element: Rectangle | TextElement; frameId: string } | null = null
+      
+      if (!clickedRectangle && !clickedText && !clickedFrame) {
+        // Check elements inside frames
+        for (const frame of frames) {
+          const frameElements = getElementsInFrame(frame.id)
+          
+          // Check rectangles inside this frame
+          const frameRectangle = frameElements.rectangles.find(rect => 
+            isPointInRectangle({ x, y }, rect)
+          )
+          if (frameRectangle) {
+            clickedFrameElement = { type: 'rectangle', element: frameRectangle, frameId: frame.id }
+            break
+          }
+          
+          // Check text elements inside this frame
+          const frameText = frameElements.textElements.find(text => 
+            isPointNearText({ x, y }, text)
+          )
+          if (frameText) {
+            clickedFrameElement = { type: 'text', element: frameText, frameId: frame.id }
+            break
+          }
+        }
+      }
+      
+      if (clickedRectangle) {
+        // Select the rectangle
+        selectObject('rectangle', clickedRectangle.id)
+      } else if (clickedText) {
+        // Select the text element
+        selectObject('text', clickedText.id)
+      } else if (clickedFrameElement) {
+        // Select the element inside the frame
+        selectObject(clickedFrameElement.type, clickedFrameElement.element.id)
+      } else if (clickedFrame) {
         // Select the frame and start moving
-        setSelectedFrameId(clickedFrame.id)
+        selectObject('frame', clickedFrame.id)
         setIsMovingFrame(true)
         setFrameMoveStart({ x, y })
         
@@ -172,12 +305,11 @@ export default function Prototype1() {
         setFrames(prev => prev.map(frame => 
           frame.id === clickedFrame.id 
             ? { ...frame, isMoving: true }
-            : { ...frame, isSelected: false }
+            : frame
         ))
       } else {
-        // Deselect all frames if clicking on empty space
-        setSelectedFrameId(null)
-        setFrames(prev => prev.map(frame => ({ ...frame, isSelected: false })))
+        // Deselect all objects if clicking on empty space
+        clearSelection()
       }
       
       if (e.button === 1) { // Middle mouse button
@@ -185,7 +317,7 @@ export default function Prototype1() {
         setLastPanPoint({ x: e.clientX, y: e.clientY })
       }
     }
-  }, [activeTool, pan, zoom, frames, selectedFrameId])
+  }, [activeTool, pan, zoom, frames, selectedFrameId, isPointInRectangle, isPointNearText, selectObject, clearSelection])
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!canvasRef.current) return
@@ -206,57 +338,61 @@ export default function Prototype1() {
       const currentX = (e.clientX - rect.left - pan.x) / zoom
       const currentY = (e.clientY - rect.top - pan.y) / zoom
       
-      const deltaX = currentX - resizeStart.x
-      const deltaY = currentY - resizeStart.y
-      
       const frame = frames.find(f => f.id === selectedFrameId)
       if (frame) {
-        let newX = frame.x
-        let newY = frame.y
-        let newWidth = frame.width
-        let newHeight = frame.height
+        // Use the original frame position and dimensions as reference
+        const originalX = resizeStart.x - resizeStart.width
+        const originalY = resizeStart.y - resizeStart.height
+        const originalWidth = resizeStart.width
+        const originalHeight = resizeStart.height
+        
+        let newX = originalX
+        let newY = originalY
+        let newWidth = originalWidth
+        let newHeight = originalHeight
         
         // Calculate new dimensions based on which handle is being dragged
         switch (resizeHandle) {
           case 'nw':
-            newX = frame.x + deltaX
-            newY = frame.y + deltaY
-            newWidth = frame.width - deltaX
-            newHeight = frame.height - deltaY
+            newX = currentX
+            newY = currentY
+            newWidth = originalX + originalWidth - currentX
+            newHeight = originalY + originalHeight - currentY
             break
           case 'n':
-            newY = frame.y + deltaY
-            newHeight = frame.height - deltaY
+            newY = currentY
+            newHeight = originalY + originalHeight - currentY
             break
           case 'ne':
-            newY = frame.y + deltaY
-            newWidth = frame.width + deltaX
-            newHeight = frame.height - deltaY
+            newY = currentY
+            newWidth = currentX - originalX
+            newHeight = originalY + originalHeight - currentY
             break
           case 'w':
-            newX = frame.x + deltaX
-            newWidth = frame.width - deltaX
+            newX = currentX
+            newWidth = originalX + originalWidth - currentX
             break
           case 'e':
-            newWidth = frame.width + deltaX
+            newWidth = currentX - originalX
             break
           case 'sw':
-            newX = frame.x + deltaX
-            newWidth = frame.width - deltaX
-            newHeight = frame.height + deltaY
+            newX = currentX
+            newWidth = originalX + originalWidth - currentX
+            newHeight = currentY - originalY
             break
           case 's':
-            newHeight = frame.height + deltaY
+            newHeight = currentY - originalY
             break
           case 'se':
-            newWidth = frame.width + deltaX
-            newHeight = frame.height + deltaY
+            newWidth = currentX - originalX
+            newHeight = currentY - originalY
             break
         }
         
         // Ensure minimum size
         const minSize = 20
         if (newWidth >= minSize && newHeight >= minSize) {
+          // Update the frame state directly (like drawing does)
           setFrames(prev => prev.map(f => 
             f.id === selectedFrameId 
               ? { ...f, x: newX, y: newY, width: newWidth, height: newHeight }
@@ -337,9 +473,6 @@ export default function Prototype1() {
             width: drawingRect.width,
             height: drawingRect.height,
             backgroundColor: '#f8fafc',
-            borderColor: '#e2e8f0',
-            borderWidth: 1,
-            borderRadius: 8,
             opacity: 1,
             isSelected: false
           }
@@ -388,9 +521,28 @@ export default function Prototype1() {
     // Check if Command (Mac) or Ctrl (Windows) is held down
     if (e.metaKey || e.ctrlKey) {
       // Zoom when modifier key is held
-      const delta = e.deltaY > 0 ? 0.95 : 1.05
+      const delta = e.deltaY > 0 ? 0.98 : 1.02
       const newZoom = Math.max(0.1, Math.min(5, zoom * delta))
-      setZoom(newZoom)
+      
+      // Get the mouse position relative to the canvas
+      const rect = canvasRef.current?.getBoundingClientRect()
+      if (rect) {
+        const mouseX = e.clientX - rect.left
+        const mouseY = e.clientY - rect.top
+        
+        // Calculate the zoom center point in canvas coordinates
+        const zoomCenterX = (mouseX - pan.x) / zoom
+        const zoomCenterY = (mouseY - pan.y) / zoom
+        
+        // Calculate new pan to keep the zoom center point under the cursor
+        const newPanX = mouseX - zoomCenterX * newZoom
+        const newPanY = mouseY - zoomCenterY * newZoom
+        
+        setZoom(newZoom)
+        setPan({ x: newPanX, y: newPanY })
+      } else {
+        setZoom(newZoom)
+      }
     } else {
       // Pan by default (like trackpad scrolling)
       setPan(prev => ({
@@ -398,15 +550,29 @@ export default function Prototype1() {
         y: prev.y - e.deltaY
       }))
     }
-  }, [zoom])
+  }, [zoom, pan])
 
-  // Delete selected frame
-  const deleteSelectedFrame = useCallback(() => {
-    if (selectedFrameId) {
-      setFrames(prev => prev.filter(frame => frame.id !== selectedFrameId))
+  // Delete selected objects
+  const deleteSelectedObjects = useCallback(() => {
+    // Delete selected rectangles
+    if (selection.selectedRectangles.length > 0) {
+      setRectangles(prev => prev.filter(rect => !selection.selectedRectangles.includes(rect.id)))
+    }
+    
+    // Delete selected text elements
+    if (selection.selectedTextElements.length > 0) {
+      setTextElements(prev => prev.filter(text => !selection.selectedTextElements.includes(text.id)))
+    }
+    
+    // Delete selected frames
+    if (selection.selectedFrames.length > 0) {
+      setFrames(prev => prev.filter(frame => !selection.selectedFrames.includes(frame.id)))
       setSelectedFrameId(null)
     }
-  }, [selectedFrameId])
+    
+    // Clear selection after deletion
+    clearSelection()
+  }, [selection, clearSelection])
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
     // Don't handle keyboard shortcuts if the target is an input element
@@ -432,10 +598,10 @@ export default function Prototype1() {
         break
       case 'delete':
       case 'backspace':
-        deleteSelectedFrame()
+        deleteSelectedObjects()
         break
     }
-  }, [deleteSelectedFrame])
+  }, [deleteSelectedObjects])
 
   const handleTextDoubleClick = useCallback((textId: string) => {
     setTextElements(prev => 
@@ -615,39 +781,184 @@ export default function Prototype1() {
                       width: frame.width,
                       height: frame.height,
                       backgroundColor: frame.backgroundColor,
-                      border: `${frame.borderWidth || 1}px solid ${frame.borderColor || '#e2e8f0'}`,
-                      borderRadius: `${frame.borderRadius || 0}px`,
+                      border: frame.borderWidth && frame.borderColor ? `${frame.borderWidth}px solid ${frame.borderColor}` : 'none',
+                      borderRadius: frame.borderRadius ? `${frame.borderRadius}px` : '0px',
                       opacity: frame.opacity || 1,
-                      transition: frame.isMoving ? 'none' : 'all 0.2s ease'
+                      transition: frame.isMoving || isResizingFrame ? 'none' : 'all 0.2s ease'
                     }}
                   >
                     {/* Render rectangles within this frame */}
                     {frameElements.rectangles.map(rect => (
+                      <div key={rect.id} className="relative">
+                        <div
+                          className="absolute pointer-events-none"
+                          style={{
+                            left: rect.x - frame.x,
+                            top: rect.y - frame.y,
+                            width: rect.width,
+                            height: rect.height,
+                            backgroundColor: rect.color
+                          }}
+                        />
+                        {/* Selection border for rectangles inside frames */}
+                        {rect.isSelected && (
+                          <div
+                            className="absolute border-2 border-blue-500 pointer-events-none"
+                            style={{
+                              left: rect.x - frame.x - 2,
+                              top: rect.y - frame.y - 2,
+                              width: rect.width + 4,
+                              height: rect.height + 4,
+                              zIndex: 5
+                            }}
+                          />
+                        )}
+                      </div>
+                    ))}
+
+                    {/* Render text elements within this frame */}
+                    {frameElements.textElements.map(textElement => (
+                      <div key={textElement.id} className="relative">
+                        <div
+                          className="absolute select-none pointer-events-none"
+                          style={{
+                            left: textElement.x - frame.x,
+                            top: textElement.y - frame.y,
+                            fontFamily: textElement.fontFamily,
+                            fontSize: textElement.fontSize,
+                            color: textElement.color
+                          }}
+                        >
+                          {textElement.isEditing ? (
+                            <input
+                              ref={editingTextId === textElement.id ? editingTextRef : null}
+                              type="text"
+                              value={textElement.text}
+                              onChange={(e) => handleTextChange(textElement.id, e.target.value)}
+                              onBlur={() => handleTextBlur(textElement.id)}
+                              onKeyDown={(e) => {
+                                if (e.key === 'Enter' || e.key === 'Escape') {
+                                  handleTextBlur(textElement.id)
+                                }
+                              }}
+                              style={{
+                                fontFamily: textElement.fontFamily,
+                                fontSize: textElement.fontSize,
+                                color: textElement.color,
+                                background: 'transparent',
+                                border: 'none',
+                                outline: 'none',
+                                minWidth: '1px',
+                                caretColor: textElement.color,
+                                width: 'auto'
+                              }}
+                              autoFocus={editingTextId === textElement.id}
+                            />
+                          ) : (
+                            textElement.text
+                          )}
+                        </div>
+                        {/* Selection border for text elements inside frames */}
+                        {textElement.isSelected && (
+                          <div
+                            className="absolute border-2 border-blue-500 pointer-events-none rounded-sm"
+                            style={{
+                              left: textElement.x - frame.x - 4,
+                              top: textElement.y - frame.y - textElement.fontSize * 0.2 - 4,
+                              width: Math.max(textElement.text.length * textElement.fontSize * 0.6, 20) + 8,
+                              height: textElement.fontSize * 1.4 + 8,
+                              zIndex: 5
+                            }}
+                          />
+                        )}
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Selection outline and resize handles for selected frame */}
+                  {frame.isSelected && (
+                    <>
+                      {/* Selection outline */}
                       <div
-                        key={rect.id}
-                        className="absolute pointer-events-none"
+                        className="absolute border-2 border-blue-500 pointer-events-none"
                         style={{
-                          left: rect.x - frame.x,
-                          top: rect.y - frame.y,
+                          left: frame.x - 2,
+                          top: frame.y - 2,
+                          width: frame.width + 4,
+                          height: frame.height + 4,
+                          borderRadius: frame.borderRadius ? `${frame.borderRadius + 2}px` : '2px',
+                          zIndex: 5
+                        }}
+                      />
+                      {/* Resize handles */}
+                      {Object.entries(getResizeHandles(frame, 16 / zoom)).map(([handle, pos]) => (
+                        <div
+                          key={handle}
+                          className="absolute bg-white border border-blue-500 rounded-sm"
+                          style={{
+                            left: pos.x,
+                            top: pos.y,
+                            width: 16 / zoom,
+                            height: 16 / zoom,
+                            cursor: getResizeCursor(handle),
+                            zIndex: 10
+                          }}
+                        />
+                      ))}
+                    </>
+                  )}
+                </div>
+              )
+            })}
+
+            {/* Render elements not in any frame */}
+            {(() => {
+              const freeElements = getElementsNotInFrame()
+              return (
+                <>
+                  {/* Free rectangles */}
+                  {freeElements.rectangles.map(rect => (
+                    <div key={rect.id} className="relative">
+                      <div
+                        className="absolute"
+                        style={{
+                          left: rect.x,
+                          top: rect.y,
                           width: rect.width,
                           height: rect.height,
                           backgroundColor: rect.color
                         }}
                       />
-                    ))}
+                      {/* Selection border for rectangles */}
+                      {rect.isSelected && (
+                        <div
+                          className="absolute border-2 border-blue-500 pointer-events-none"
+                          style={{
+                            left: rect.x - 2,
+                            top: rect.y - 2,
+                            width: rect.width + 4,
+                            height: rect.height + 4,
+                            zIndex: 5
+                          }}
+                        />
+                      )}
+                    </div>
+                  ))}
 
-                    {/* Render text elements within this frame */}
-                    {frameElements.textElements.map(textElement => (
+                  {/* Free text elements */}
+                  {freeElements.textElements.map(textElement => (
+                    <div key={textElement.id} className="relative">
                       <div
-                        key={textElement.id}
-                        className="absolute select-none pointer-events-none"
+                        className="absolute select-none"
                         style={{
-                          left: textElement.x - frame.x,
-                          top: textElement.y - frame.y,
+                          left: textElement.x,
+                          top: textElement.y,
                           fontFamily: textElement.fontFamily,
                           fontSize: textElement.fontSize,
-                          color: textElement.color
+                          color: textElement.color,
+                          cursor: 'pointer'
                         }}
+                        onDoubleClick={() => handleTextDoubleClick(textElement.id)}
                       >
                         {textElement.isEditing ? (
                           <input
@@ -678,107 +989,18 @@ export default function Prototype1() {
                           textElement.text
                         )}
                       </div>
-                    ))}
-                  </div>
-
-                  {/* Selection outline and resize handles for selected frame */}
-                  {frame.isSelected && (
-                    <>
-                      {/* Selection outline */}
-                      <div
-                        className="absolute border-2 border-blue-500 pointer-events-none"
-                        style={{
-                          left: frame.x - 2,
-                          top: frame.y - 2,
-                          width: frame.width + 4,
-                          height: frame.height + 4,
-                          borderRadius: `${(frame.borderRadius || 0) + 2}px`,
-                          zIndex: 5
-                        }}
-                      />
-                      {/* Resize handles */}
-                      {Object.entries(getResizeHandles(frame, 8 / zoom)).map(([handle, pos]) => (
+                      {/* Selection border for text elements */}
+                      {textElement.isSelected && (
                         <div
-                          key={handle}
-                          className="absolute bg-white border border-blue-500 rounded-sm"
+                          className="absolute border-2 border-blue-500 pointer-events-none rounded-sm"
                           style={{
-                            left: pos.x,
-                            top: pos.y,
-                            width: 8 / zoom,
-                            height: 8 / zoom,
-                            cursor: getResizeCursor(handle),
-                            zIndex: 10
+                            left: textElement.x - 4,
+                            top: textElement.y - textElement.fontSize * 0.2 - 4,
+                            width: Math.max(textElement.text.length * textElement.fontSize * 0.6, 20) + 8,
+                            height: textElement.fontSize * 1.4 + 8,
+                            zIndex: 5
                           }}
                         />
-                      ))}
-                    </>
-                  )}
-                </div>
-              )
-            })}
-
-            {/* Render elements not in any frame */}
-            {(() => {
-              const freeElements = getElementsNotInFrame()
-              return (
-                <>
-                  {/* Free rectangles */}
-                  {freeElements.rectangles.map(rect => (
-                    <div
-                      key={rect.id}
-                      className="absolute"
-                      style={{
-                        left: rect.x,
-                        top: rect.y,
-                        width: rect.width,
-                        height: rect.height,
-                        backgroundColor: rect.color
-                      }}
-                    />
-                  ))}
-
-                  {/* Free text elements */}
-                  {freeElements.textElements.map(textElement => (
-                    <div
-                      key={textElement.id}
-                      className="absolute select-none"
-                      style={{
-                        left: textElement.x,
-                        top: textElement.y,
-                        fontFamily: textElement.fontFamily,
-                        fontSize: textElement.fontSize,
-                        color: textElement.color,
-                        cursor: 'pointer'
-                      }}
-                      onDoubleClick={() => handleTextDoubleClick(textElement.id)}
-                    >
-                      {textElement.isEditing ? (
-                        <input
-                          ref={editingTextId === textElement.id ? editingTextRef : null}
-                          type="text"
-                          value={textElement.text}
-                          onChange={(e) => handleTextChange(textElement.id, e.target.value)}
-                          onBlur={() => handleTextBlur(textElement.id)}
-                          onKeyDown={(e) => {
-                            if (e.key === 'Enter' || e.key === 'Escape') {
-                              handleTextBlur(textElement.id)
-                            }
-                          }}
-                          style={{
-                            fontFamily: textElement.fontFamily,
-                            fontSize: textElement.fontSize,
-                            color: textElement.color,
-                            background: 'transparent',
-                            border: 'none',
-                            outline: 'none',
-                            minWidth: '1px',
-                            caretColor: textElement.color,
-                            width: 'auto'
-                          }}
-                          autoFocus={editingTextId === textElement.id}
-                        />
-                      ) : (
-                        textElement.text
                       )}
                     </div>
                   ))}
@@ -836,26 +1058,7 @@ export default function Prototype1() {
 
           </div>
 
-          {/* Zoom Controls */}
-          <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg border border-gray-200 p-2 flex items-center gap-2">
-            <button
-              onClick={() => setZoom(Math.max(0.1, zoom * 0.9))}
-              className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
-              title="Zoom Out"
-            >
-              <span className="text-lg font-bold">−</span>
-            </button>
-            <span className="px-2 text-sm text-gray-600 min-w-[3rem] text-center">
-              {Math.round(zoom * 100)}%
-            </span>
-            <button
-              onClick={() => setZoom(Math.min(5, zoom * 1.1))}
-              className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
-              title="Zoom In"
-            >
-              <span className="text-lg font-bold">+</span>
-            </button>
-          </div>
+
         </div>
       </div>
     </div>
