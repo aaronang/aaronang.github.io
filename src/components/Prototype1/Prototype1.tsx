@@ -142,7 +142,7 @@ export default function Prototype1() {
           const handleSize = 8 / zoom // Handle size in canvas coordinates
           const handles = getResizeHandles(frame, handleSize)
           
-          const clickedHandle = Object.entries(handles).find(([key, handle]) => 
+          const clickedHandle = Object.entries(handles).find(([_key, handle]) => 
             x >= handle.x && x <= handle.x + handleSize &&
             y >= handle.y && y <= handle.y + handleSize
           )
@@ -380,9 +380,7 @@ export default function Prototype1() {
     }
   }, [isDrawing, drawingRect, isResizingFrame, isMovingFrame, isPanning, colors, activeTool, selectedFrameId])
 
-  const toggleRectangleTool = () => {
-    setActiveTool(activeTool === 'rectangle' ? 'select' : 'rectangle')
-  }
+
 
   const handleWheel = useCallback((e: React.WheelEvent) => {
     e.preventDefault()

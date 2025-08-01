@@ -1,5 +1,5 @@
 import { Square, MousePointer } from 'lucide-react'
-import { Tool } from '../types'
+import type { Tool } from '../types'
 
 interface ToolbarProps {
   activeTool: Tool

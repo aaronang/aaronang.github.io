@@ -1,4 +1,4 @@
-import { Rectangle, DrawingRect, Tool } from '../types'
+import type { Rectangle, DrawingRect, Tool } from '../types'
 
 interface CanvasProps {
   rectangles: Rectangle[]

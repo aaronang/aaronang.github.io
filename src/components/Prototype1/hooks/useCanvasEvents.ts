@@ -1,5 +1,5 @@
 import { useCallback, useRef } from 'react'
-import { Point } from '../types'
+import type { Point } from '../types'
 import { ZOOM_FACTORS, ZOOM_LIMITS } from '../constants'
 
 interface CanvasEventHandlers {
@@ -8,6 +8,7 @@ interface CanvasEventHandlers {
   onMouseUp: () => void
   onWheel: (e: React.WheelEvent) => void
   onKeyDown: (e: React.KeyboardEvent) => void
+  canvasRef: React.RefObject<HTMLDivElement | null>
 }
 
 interface UseCanvasEventsProps {

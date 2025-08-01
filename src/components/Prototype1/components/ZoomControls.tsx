@@ -1,5 +1,3 @@
-import { ZOOM_FACTORS, ZOOM_LIMITS } from '../constants'
-
 interface ZoomControlsProps {
   zoom: number
   onZoomIn: () => void

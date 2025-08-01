@@ -1,10 +1,12 @@
 import { useState, useCallback } from 'react'
-import { CanvasState, Rectangle, Point, DrawingRect, PanState, Tool } from '../types'
+import type { CanvasState, Rectangle, Point, PanState, Tool } from '../types'
 import { COLORS, ZOOM_LIMITS, ZOOM_FACTORS, MIN_RECTANGLE_SIZE } from '../constants'
 
 export function useCanvasState() {
   const [state, setState] = useState<CanvasState>({
     rectangles: [],
+    textElements: [],
+    frames: [],
     isDrawing: false,
     drawingRect: null,
     startPoint: null,
