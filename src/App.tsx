@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -10,7 +9,9 @@ function App() {
       <div className="text-center">
         <div className="flex justify-center space-x-8 mb-8">
           <a href="https://vite.dev" target="_blank" className="hover:scale-110 transition-transform">
-            <img src={viteLogo} className="h-24 w-24" alt="Vite logo" />
+            <div className="h-24 w-24 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-white text-2xl font-bold">
+              ⚡
+            </div>
           </a>
           <a href="https://react.dev" target="_blank" className="hover:scale-110 transition-transform">
             <img src={reactLogo} className="h-24 w-24 animate-spin" alt="React logo" />
