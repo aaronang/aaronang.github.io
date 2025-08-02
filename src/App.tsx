@@ -3,7 +3,9 @@ import Prototype1 from './components/Prototype1'
 import Dock from './components/Dock'
 import Window from './components/Window'
 import About from './components/About'
+import Help from './components/Help'
 import Notes from './components/Notes'
+import WebView from './components/WebView'
 
 interface WindowState {
   id: string
@@ -20,7 +22,8 @@ function App() {
     home: { id: 'home', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
     design: { id: 'design', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
     settings: { id: 'settings', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
-            about: { id: 'about', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 }
+    help: { id: 'help', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
+    webview: { id: 'webview', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 }
   })
 
   const handleDockItemClick = (itemId: string) => {
@@ -184,11 +187,28 @@ function App() {
             </div>
           </Window>
         )
-      case 'about':
+      case 'webview':
         return (
           <Window
             key={windowId}
-            title="About"
+            title="About - Aaron Ang"
+            isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
+            onClose={() => handleWindowClose(windowId)}
+            onMinimize={() => handleWindowMinimize(windowId)}
+            onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
+            defaultPosition={{ x: 150, y: 100 }}
+            defaultSize={{ width: 880, height: 800 }}
+          >
+            <About />
+          </Window>
+        )
+      case 'help':
+        return (
+          <Window
+            key={windowId}
+            title=""
             isActive={windowState.isActive}
             zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}
@@ -198,7 +218,7 @@ function App() {
             defaultPosition={{ x: 350, y: 200 }}
             defaultSize={{ width: 600, height: 500 }}
           >
-            <About />
+            <Help />
           </Window>
         )
       default:

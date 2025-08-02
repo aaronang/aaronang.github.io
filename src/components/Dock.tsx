@@ -38,8 +38,8 @@ const LayersIcon = ({ size = 24 }: { size?: number; strokeWidth?: number }) => (
   </svg>
 )
 
-// Custom Hearts Icon Component for Attributions
-const HeartIcon = ({ size = 24 }: { size?: number; strokeWidth?: number }) => (
+// Custom User Icon Component for About
+const UserIcon = ({ size = 24 }: { size?: number; strokeWidth?: number }) => (
   <svg 
     width={size} 
     height={size} 
@@ -47,34 +47,82 @@ const HeartIcon = ({ size = 24 }: { size?: number; strokeWidth?: number }) => (
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
   >
-    <title>hearts</title>
+    <title>user</title>
     <g fill="none">
-      <path d="M8.5 4.78424C10.1546 2.73592 13.2346 2.29547 15.4235 4.28452C16.103 4.90199 16.6026 5.7319 16.8331 6.64078C17.2856 8.42808 16.7907 10.1964 15.6778 11.4101C13.8614 13.3908 11.9975 15.3287 10.1458 17.2763C9.23715 18.2318 7.76317 18.2332 6.85345 17.2763C5.00203 15.329 3.13545 13.3874 1.32219 11.4101C0.209283 10.1964 -0.285625 8.42808 0.166894 6.64078C0.397347 5.73191 0.89699 4.90199 1.5765 4.28452C3.76536 2.29547 6.84541 2.73597 8.5 4.78424Z" fill="url(#hearts_gradient_0)" data-glass="origin" mask="url(#hearts_mask)"></path>
-      <path d="M8.5 4.78424C10.1546 2.73592 13.2346 2.29547 15.4235 4.28452C16.103 4.90199 16.6026 5.7319 16.8331 6.64078C17.2856 8.42808 16.7907 10.1964 15.6778 11.4101C13.8614 13.3908 11.9975 15.3287 10.1458 17.2763C9.23715 18.2318 7.76317 18.2332 6.85345 17.2763C5.00203 15.329 3.13545 13.3874 1.32219 11.4101C0.209283 10.1964 -0.285625 8.42808 0.166894 6.64078C0.397347 5.73191 0.89699 4.90199 1.5765 4.28452C3.76536 2.29547 6.84541 2.73597 8.5 4.78424Z" fill="url(#hearts_gradient_0)" data-glass="clone" filter="url(#hearts_filter)" clipPath="url(#hearts_clipPath)"></path>
-      <path d="M15.5 8.78424C17.1546 6.73592 20.2346 6.29547 22.4235 8.28452C23.103 8.90199 23.6026 9.7319 23.8331 10.6408C24.2856 12.4281 23.7907 14.1964 22.6778 15.4101C20.8614 17.3908 18.9869 19.3407 17.1352 21.2883C16.2266 22.2438 14.7632 22.2332 13.8535 21.2763C12.002 19.329 10.1355 17.3874 8.32219 15.4101C7.20928 14.1964 6.71438 12.4281 7.16689 10.6408C7.39735 9.73191 7.89699 8.90199 8.5765 8.28452C10.7654 6.29547 13.8454 6.73597 15.5 8.78424Z" fill="url(#hearts_gradient_1)" data-glass="blur"></path>
-      <path d="M15.5002 8.7844C17.1547 6.7361 20.2351 6.29534 22.4239 8.28439C23.1034 8.90182 23.6026 9.73204 23.8331 10.6408C24.2856 12.4282 23.7907 14.1967 22.6778 15.4104L21.3058 16.8909C19.9256 18.3661 18.5236 19.8277 17.1349 21.2883C16.283 22.184 14.9441 22.2308 14.0305 21.4446L13.8537 21.2766C12.4651 19.8161 11.0683 18.3585 9.69162 16.887L8.3225 15.4104C7.27917 14.2726 6.77864 12.6472 7.09301 10.9758L7.16723 10.6408C7.3977 9.73205 7.89694 8.90182 8.5764 8.28439C10.7652 6.29535 13.8456 6.73615 15.5002 8.7844ZM21.9191 8.84006C20.0674 7.15746 17.4822 7.52406 16.0832 9.25608C15.9408 9.43209 15.7266 9.5344 15.5002 9.5344C15.2738 9.5344 15.0596 9.4321 14.9172 9.25608C13.5181 7.52409 10.9329 7.15748 9.08128 8.84006C8.51149 9.35785 8.08828 10.0584 7.89379 10.8254C7.50353 12.3674 7.93306 13.8761 8.87523 14.9036C10.6825 16.8744 12.5423 18.8085 14.3976 20.76C15.0165 21.4105 15.9838 21.4113 16.592 20.7717L19.3751 17.8459C20.3002 16.8696 21.2199 15.8907 22.1251 14.9036C23.0673 13.8761 23.4968 12.3674 23.1065 10.8254C22.912 10.0584 22.4889 9.35783 21.9191 8.84006Z" fill="url(#hearts_gradient_2)"></path>
+      <path fillRule="evenodd" clipRule="evenodd" d="M2 11C2 5.47723 6.47723 1 12 1C17.5228 1 22 5.47723 22 11C22 16.5228 17.5228 21 12 21C6.47723 21 2 16.5228 2 11Z" fill="url(#user_gradient_0)" data-glass="origin" mask="url(#user_mask)"></path>
+      <path fillRule="evenodd" clipRule="evenodd" d="M2 11C2 5.47723 6.47723 1 12 1C17.5228 1 22 5.47723 22 11C22 16.5228 17.5228 21 12 21C6.47723 21 2 16.5228 2 11Z" fill="url(#user_gradient_0)" data-glass="clone" filter="url(#user_filter)" clipPath="url(#user_clipPath)"></path>
+      <path d="M12.4414 14C16.3397 14.0001 19.4999 17.1603 19.5 21.0586C19.5 22.1307 18.6307 23 17.5586 23H6.44141C5.36932 23 4.5 22.1307 4.5 21.0586C4.50012 17.1603 7.6603 14.0001 11.5586 14H12.4414ZM12 5C13.933 5 15.5 6.567 15.5 8.5C15.5 10.433 13.933 12 12 12C10.067 12 8.5 10.433 8.5 8.5C8.5 6.567 10.067 5 12 5Z" fill="url(#user_gradient_1)" data-glass="blur"></path>
+      <path d="M17.5586 22.25V23H6.44141V22.25H17.5586ZM18.75 21.0586C18.7499 17.5745 15.9255 14.7501 12.4414 14.75H11.5586C8.07451 14.7501 5.25012 17.5745 5.25 21.0586C5.25 21.7165 5.78354 22.25 6.44141 22.25V23L6.24316 22.9902C5.26408 22.891 4.5 22.0638 4.5 21.0586C4.50012 17.1603 7.6603 14.0001 11.5586 14H12.4414L12.8047 14.0088C16.5342 14.198 19.4999 17.2821 19.5 21.0586C19.5 22.1307 18.6307 23 17.5586 23V22.25C18.2165 22.25 18.75 21.7165 18.75 21.0586Z" fill="url(#user_gradient_2)"></path>
+      <path d="M14.75 8.5C14.75 6.98122 13.5188 5.75 12 5.75C10.4812 5.75 9.25 6.98122 9.25 8.5C9.25 10.0188 10.4812 11.25 12 11.25V12C10.067 12 8.5 10.433 8.5 8.5C8.5 6.567 10.067 5 12 5C13.933 5 15.5 6.567 15.5 8.5C15.5 10.433 13.933 12 12 12V11.25C13.5188 11.25 14.75 10.0188 14.75 8.5Z" fill="url(#user_gradient_3)"></path>
       <defs>
-        <linearGradient id="hearts_gradient_0" x1="8.5" y1="3" x2="8.5" y2="17.993" gradientUnits="userSpaceOnUse">
+        <linearGradient id="user_gradient_0" x1="12" y1="1" x2="12" y2="21" gradientUnits="userSpaceOnUse">
           <stop stopColor="#575757"></stop>
           <stop offset="1" stopColor="#151515"></stop>
         </linearGradient>
-        <linearGradient id="hearts_gradient_1" x1="15.5" y1="7" x2="15.5" y2="22" gradientUnits="userSpaceOnUse">
+        <linearGradient id="user_gradient_1" x1="12" y1="5" x2="12" y2="23" gradientUnits="userSpaceOnUse">
           <stop stopColor="#E3E3E5" stopOpacity=".6"></stop>
           <stop offset="1" stopColor="#BBBBC0" stopOpacity=".6"></stop>
         </linearGradient>
-        <linearGradient id="hearts_gradient_2" x1="15.5" y1="7" x2="15.5" y2="15.686" gradientUnits="userSpaceOnUse">
+        <linearGradient id="user_gradient_2" x1="12" y1="14" x2="12" y2="19.212" gradientUnits="userSpaceOnUse">
           <stop stopColor="#fff"></stop>
           <stop offset="1" stopColor="#fff" stopOpacity="0"></stop>
         </linearGradient>
-        <filter id="hearts_filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
+        <linearGradient id="user_gradient_3" x1="12" y1="5" x2="12" y2="9.054" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#fff"></stop>
+          <stop offset="1" stopColor="#fff" stopOpacity="0"></stop>
+        </linearGradient>
+        <filter id="user_filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
           <feGaussianBlur stdDeviation="2" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur>
         </filter>
-        <clipPath id="hearts_clipPath">
-          <path d="M15.5 8.78424C17.1546 6.73592 20.2346 6.29547 22.4235 8.28452C23.103 8.90199 23.6026 9.7319 23.8331 10.6408C24.2856 12.4281 23.7907 14.1964 22.6778 15.4101C20.8614 17.3908 18.9869 19.3407 17.1352 21.2883C16.2266 22.2438 14.7632 22.2332 13.8535 21.2763C12.002 19.329 10.1355 17.3874 8.32219 15.4101C7.20928 14.1964 6.71438 12.4281 7.16689 10.6408C7.39735 9.73191 7.89699 8.90199 8.5765 8.28452C10.7654 6.29547 13.8454 6.73597 15.5 8.78424Z" fill="url(#hearts_gradient_1)"></path>
+        <clipPath id="user_clipPath">
+          <path d="M12.4414 14C16.3397 14.0001 19.4999 17.1603 19.5 21.0586C19.5 22.1307 18.6307 23 17.5586 23H6.44141C5.36932 23 4.5 22.1307 4.5 21.0586C4.50012 17.1603 7.6603 14.0001 11.5586 14H12.4414ZM12 5C13.933 5 15.5 6.567 15.5 8.5C15.5 10.433 13.933 12 12 12C10.067 12 8.5 10.433 8.5 8.5C8.5 6.567 10.067 5 12 5Z" fill="url(#user_gradient_1)"></path>
         </clipPath>
-        <mask id="hearts_mask">
+        <mask id="user_mask">
           <rect width="100%" height="100%" fill="#FFF"></rect>
-          <path d="M15.5 8.78424C17.1546 6.73592 20.2346 6.29547 22.4235 8.28452C23.103 8.90199 23.6026 9.7319 23.8331 10.6408C24.2856 12.4281 23.7907 14.1964 22.6778 15.4101C20.8614 17.3908 18.9869 19.3407 17.1352 21.2883C16.2266 22.2438 14.7632 22.2332 13.8535 21.2763C12.002 19.329 10.1355 17.3874 8.32219 15.4101C7.20928 14.1964 6.71438 12.4281 7.16689 10.6408C7.39735 9.73191 7.89699 8.90199 8.5765 8.28452C10.7654 6.29547 13.8454 6.73597 15.5 8.78424Z" fill="#000"></path>
+          <path d="M12.4414 14C16.3397 14.0001 19.4999 17.1603 19.5 21.0586C19.5 22.1307 18.6307 23 17.5586 23H6.44141C5.36932 23 4.5 22.1307 4.5 21.0586C4.50012 17.1603 7.6603 14.0001 11.5586 14H12.4414ZM12 5C13.933 5 15.5 6.567 15.5 8.5C15.5 10.433 13.933 12 12 12C10.067 12 8.5 10.433 8.5 8.5C8.5 6.567 10.067 5 12 5Z" fill="#000"></path>
+        </mask>
+      </defs>
+    </g>
+  </svg>
+)
+
+// Custom Question Mark Icon Component for Help
+const QuestionIcon = ({ size = 24 }: { size?: number; strokeWidth?: number }) => (
+  <svg 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <title>circle-question</title>
+    <g fill="none">
+      <path d="M10 18.0098V18C10 16.8954 10.8954 16 12 16C13.1046 16 14 16.8954 14 18V18.0098C14 19.1143 13.1046 20.0098 12 20.0098C10.8954 20.0098 10 19.1143 10 18.0098ZM13 9.5C13 8.94772 12.5523 8.5 12 8.5C11.4477 8.5 11 8.94772 11 9.5C11 10.6046 10.1046 11.5 9 11.5C7.89543 11.5 7 10.6046 7 9.5C7 6.73858 9.23858 4.5 12 4.5C14.7614 4.5 17 6.73858 17 9.5C17 11.3954 15.9442 13.0415 14.3984 13.8877C14.2927 13.9456 14.1982 14.0068 14.1201 14.0664C14.0611 14.1114 14.0192 14.1508 13.9902 14.1807C13.8988 15.2005 13.0436 16 12 16C10.8954 16 10 15.1046 10 14C10 12.9774 10.4464 12.1659 10.9287 11.6035C11.4024 11.0512 11.9791 10.6523 12.4785 10.3789C12.7936 10.2062 13 9.87572 13 9.5Z" fill="url(#question_gradient_0)" data-glass="origin" mask="url(#question_mask)"></path>
+      <path d="M10 18.0098V18C10 16.8954 10.8954 16 12 16C13.1046 16 14 16.8954 14 18V18.0098C14 19.1143 13.1046 20.0098 12 20.0098C10.8954 20.0098 10 19.1143 10 18.0098ZM13 9.5C13 8.94772 12.5523 8.5 12 8.5C11.4477 8.5 11 8.94772 11 9.5C11 10.6046 10.1046 11.5 9 11.5C7.89543 11.5 7 10.6046 7 9.5C7 6.73858 9.23858 4.5 12 4.5C14.7614 4.5 17 6.73858 17 9.5C17 11.3954 15.9442 13.0415 14.3984 13.8877C14.2927 13.9456 14.1982 14.0068 14.1201 14.0664C14.0611 14.1114 14.0192 14.1508 13.9902 14.1807C13.8988 15.2005 13.0436 16 12 16C10.8954 16 10 15.1046 10 14C10 12.9774 10.4464 12.1659 10.9287 11.6035C11.4024 11.0512 11.9791 10.6523 12.4785 10.3789C12.7936 10.2062 13 9.87572 13 9.5Z" fill="url(#question_gradient_0)" data-glass="clone" filter="url(#question_filter)" clipPath="url(#question_clipPath)"></path>
+      <path fillRule="evenodd" clipRule="evenodd" d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM12 16.5C11.3096 16.5 10.75 17.0596 10.75 17.75V17.7598C10.75 18.4501 11.3096 19.0098 12 19.0098C12.6904 19.0098 13.25 18.4501 13.25 17.7598V17.75C13.25 17.0596 12.6904 16.5 12 16.5ZM12 5.5C9.79086 5.5 8 7.29086 8 9.5C8 10.0523 8.44772 10.5 9 10.5C9.55229 10.5 10 10.0523 10 9.5C10 8.39543 10.8954 7.5 12 7.5C13.1046 7.5 14 8.39543 14 9.5C14 10.2557 13.5809 10.9149 12.958 11.2559C12.5267 11.492 12.0587 11.8211 11.6875 12.2539C11.3119 12.6918 11 13.2816 11 14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14C13 13.89 13.0442 13.7454 13.2061 13.5566C13.3724 13.3627 13.6236 13.1724 13.9189 13.0107C15.157 12.3329 16 11.0155 16 9.5C16 7.29086 14.2091 5.5 12 5.5Z" fill="url(#question_gradient_1)" data-glass="blur"></path>
+      <path d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM12 1.75C6.33908 1.75 1.75 6.33908 1.75 12C1.75 17.6609 6.33908 22.25 12 22.25C17.6609 22.25 22.25 17.6609 22.25 12C22.25 6.33908 17.6609 1.75 12 1.75Z" fill="url(#question_gradient_2)"></path>
+      <defs>
+        <linearGradient id="question_gradient_0" x1="12" y1="4.5" x2="12" y2="20.01" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#575757"></stop>
+          <stop offset="1" stopColor="#151515"></stop>
+        </linearGradient>
+        <linearGradient id="question_gradient_1" x1="12" y1="1" x2="12" y2="23" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#E3E3E5" stopOpacity=".6"></stop>
+          <stop offset="1" stopColor="#BBBBC0" stopOpacity=".6"></stop>
+        </linearGradient>
+        <linearGradient id="question_gradient_2" x1="12" y1="1" x2="12" y2="13.74" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#fff"></stop>
+          <stop offset="1" stopColor="#fff" stopOpacity="0"></stop>
+        </linearGradient>
+        <filter id="question_filter" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
+          <feGaussianBlur stdDeviation="2" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur>
+        </filter>
+        <clipPath id="question_clipPath">
+          <path fillRule="evenodd" clipRule="evenodd" d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM12 16.5C11.3096 16.5 10.75 17.0596 10.75 17.75V17.7598C10.75 18.4501 11.3096 19.0098 12 19.0098C12.6904 19.0098 13.25 18.4501 13.25 17.7598V17.75C13.25 17.0596 12.6904 16.5 12 16.5ZM12 5.5C9.79086 5.5 8 7.29086 8 9.5C8 10.0523 8.44772 10.5 9 10.5C9.55229 10.5 10 10.0523 10 9.5C10 8.39543 10.8954 7.5 12 7.5C13.1046 7.5 14 8.39543 14 9.5C14 10.2557 13.5809 10.9149 12.958 11.2559C12.5267 11.492 12.0587 11.8211 11.6875 12.2539C11.3119 12.6918 11 13.2816 11 14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14C13 13.89 13.0442 13.7454 13.2061 13.5566C13.3724 13.3627 13.6236 13.1724 13.9189 13.0107C15.157 12.3329 16 11.0155 16 9.5C16 7.29086 14.2091 5.5 12 5.5Z" fill="url(#question_gradient_1)"></path>
+        </clipPath>
+        <mask id="question_mask">
+          <rect width="100%" height="100%" fill="#FFF"></rect>
+          <path fillRule="evenodd" clipRule="evenodd" d="M12 1C18.0751 1 23 5.92487 23 12C23 18.0751 18.0751 23 12 23C5.92487 23 1 18.0751 1 12C1 5.92487 5.92487 1 12 1ZM12 16.5C11.3096 16.5 10.75 17.0596 10.75 17.75V17.7598C10.75 18.4501 11.3096 19.0098 12 19.0098C12.6904 19.0098 13.25 18.4501 13.25 17.7598V17.75C13.25 17.0596 12.6904 16.5 12 16.5ZM12 5.5C9.79086 5.5 8 7.29086 8 9.5C8 10.0523 8.44772 10.5 9 10.5C9.55229 10.5 10 10.0523 10 9.5C10 8.39543 10.8954 7.5 12 7.5C13.1046 7.5 14 8.39543 14 9.5C14 10.2557 13.5809 10.9149 12.958 11.2559C12.5267 11.492 12.0587 11.8211 11.6875 12.2539C11.3119 12.6918 11 13.2816 11 14C11 14.5523 11.4477 15 12 15C12.5523 15 13 14.5523 13 14C13 13.89 13.0442 13.7454 13.2061 13.5566C13.3724 13.3627 13.6236 13.1724 13.9189 13.0107C15.157 12.3329 16 11.0155 16 9.5C16 7.29086 14.2091 5.5 12 5.5Z" fill="#000"></path>
         </mask>
       </defs>
     </g>
@@ -88,6 +136,7 @@ interface DockItem {
   href?: string
   isActive?: boolean
   isOpen?: boolean
+  isMinimized?: boolean
 }
 
 interface WindowState {
@@ -111,22 +160,33 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
       id: 'home',
       label: 'Notes',
       icon: FeatherIcon,
-      isActive: activeItem === 'home' && windows?.['home']?.isOpen,
-      isOpen: windows?.['home']?.isOpen || false
-    },
-         {
-       id: 'prototype1',
-       label: 'Draw',
-       icon: LayersIcon,
-      isActive: activeItem === 'prototype1' && windows?.['prototype1']?.isOpen,
-      isOpen: windows?.['prototype1']?.isOpen || false
+      isActive: activeItem === 'home' && windows?.['home']?.isOpen && !windows?.['home']?.isMinimized,
+      isOpen: windows?.['home']?.isOpen || false,
+      isMinimized: windows?.['home']?.isMinimized || false
     },
     {
-      id: 'about',
+      id: 'prototype1',
+      label: 'Draw',
+      icon: LayersIcon,
+      isActive: activeItem === 'prototype1' && windows?.['prototype1']?.isOpen && !windows?.['prototype1']?.isMinimized,
+      isOpen: windows?.['prototype1']?.isOpen || false,
+      isMinimized: windows?.['prototype1']?.isMinimized || false
+    },
+    {
+      id: 'webview',
       label: 'About',
-      icon: HeartIcon,
-      isActive: activeItem === 'about' && windows?.['about']?.isOpen,
-      isOpen: windows?.['about']?.isOpen || false
+      icon: UserIcon,
+      isActive: activeItem === 'webview' && windows?.['webview']?.isOpen && !windows?.['webview']?.isMinimized,
+      isOpen: windows?.['webview']?.isOpen || false,
+      isMinimized: windows?.['webview']?.isMinimized || false
+    },
+    {
+      id: 'help',
+      label: 'System Info',
+      icon: QuestionIcon,
+      isActive: activeItem === 'help' && windows?.['help']?.isOpen && !windows?.['help']?.isMinimized,
+      isOpen: windows?.['help']?.isOpen || false,
+      isMinimized: windows?.['help']?.isMinimized || false
     }
   ]
 
@@ -144,14 +204,15 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
              <div 
          className="h-full border-r border-white/10 shadow-2xl bg-stone-800/40 backdrop-blur-[40px]"
        >
-        <div className="flex flex-col items-center justify-start gap-1 px-2 py-4 h-full">
-          {/* All Dock Items (including heart) */}
+        <div className="flex flex-col items-center justify-between gap-1 px-2 py-4 h-full">
+          {/* Main Dock Items */}
           <div className="flex flex-col items-center gap-1">
-            {dockItems.map((item) => {
+            {dockItems.slice(0, 3).map((item) => {
               const Icon = item.icon
               const isHovered = hoveredItem === item.id
               const isActive = item.isActive
               const isOpen = item.isOpen
+              const isMinimized = item.isMinimized
               
               return (
                 <div
@@ -176,7 +237,7 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
                     }}
                   >
                     {/* Icon */}
-                    <div className="relative z-10 text-white">
+                    <div className={`relative z-10 text-white transition-opacity duration-200 ${isMinimized ? 'opacity-60' : 'opacity-100'}`}>
                       <Icon 
                         size={20} 
                         strokeWidth={1.5}
@@ -200,10 +261,93 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
                          isOpen && !isActive ? 'h-1 opacity-100' : 'h-0 opacity-0'
                        }`}
                        style={{
-                         background: 'rgba(255, 255, 255, 0.4)',
+                         background: isMinimized ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.4)',
                          boxShadow: isOpen && !isActive ? '0 0 2px rgba(255, 255, 255, 0.2)' : 'none'
                        }}
                      />
+                  </div>
+                  
+                  {/* Tooltip */}
+                  {isHovered && (
+                    <div 
+                      className="absolute left-full top-1/2 transform -translate-y-1/2 ml-2 px-3 py-2 text-sm rounded-lg whitespace-nowrap opacity-0 animate-in fade-in duration-200"
+                      style={{
+                        background: 'rgba(0, 0, 0, 0.9)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                        color: 'white',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.4)'
+                      }}
+                    >
+                      {item.label}
+                      <div className="absolute top-1/2 right-full transform -translate-y-1/2 w-0 h-0 border-t-4 border-b-4 border-r-4 border-transparent" style={{ borderRightColor: 'rgba(0, 0, 0, 0.9)' }}></div>
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+          
+          {/* Help Item at Bottom */}
+          <div className="flex flex-col items-center gap-1">
+            {dockItems.slice(3).map((item) => {
+              const Icon = item.icon
+              const isHovered = hoveredItem === item.id
+              const isActive = item.isActive
+              const isOpen = item.isOpen
+              const isMinimized = item.isMinimized
+              
+              return (
+                <div
+                  key={item.id}
+                  className="relative group"
+                  onMouseEnter={() => handleItemHover(item.id)}
+                  onMouseLeave={() => handleItemHover(null)}
+                  onClick={() => handleItemClick(item.id)}
+                >
+                  <div
+                    className={`relative p-2 rounded cursor-pointer transition-all duration-200`}
+                    style={{
+                      background: isActive || isHovered
+                        ? 'rgba(255, 255, 255, 0.15)'
+                        : 'transparent',
+                      backdropFilter: isActive || isHovered
+                        ? 'blur(20px) saturate(150%)'
+                        : 'none',
+                      WebkitBackdropFilter: isActive || isHovered
+                        ? 'blur(20px) saturate(150%)'
+                        : 'none'
+                    }}
+                  >
+                    {/* Icon */}
+                    <div className={`relative z-10 text-white transition-opacity duration-200 ${isMinimized ? 'opacity-60' : 'opacity-100'}`}>
+                      <Icon 
+                        size={20} 
+                        strokeWidth={1.5}
+                      />
+                    </div>
+                    
+                    {/* Active Indicator - Left Edge */}
+                    <div 
+                      className={`absolute left-0 top-1/2 transform -translate-y-1/2 w-0.75 rounded-full transition-all duration-200 ease-out ${
+                        isActive ? 'h-4 opacity-100' : 'h-0 opacity-0'
+                      }`}
+                      style={{
+                        background: 'linear-gradient(180deg, #60a5fa, #3b82f6)',
+                        boxShadow: isActive ? '0 0 4px rgba(59, 130, 246, 0.6)' : 'none'
+                      }}
+                    />
+                    
+                    {/* Opened Indicator - Left Edge */}
+                    <div 
+                      className={`absolute left-0 top-1/2 transform -translate-y-1/2 w-0.75 rounded-full transition-all duration-200 ease-out ${
+                        isOpen && !isActive ? 'h-1 opacity-100' : 'h-0 opacity-0'
+                      }`}
+                      style={{
+                        background: isMinimized ? 'rgba(255, 255, 255, 0.2)' : 'rgba(255, 255, 255, 0.4)',
+                        boxShadow: isOpen && !isActive ? '0 0 2px rgba(255, 255, 255, 0.2)' : 'none'
+                      }}
+                    />
                   </div>
                   
                   {/* Tooltip */}
