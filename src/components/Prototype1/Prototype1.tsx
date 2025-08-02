@@ -482,7 +482,7 @@ export default function Prototype1() {
       }))
       setLastPanPoint({ x: e.clientX, y: e.clientY })
     }
-  }, [isDrawing, startPoint, isResizingFrame, resizeStart, resizeHandle, selectedFrameId, isMovingFrame, frameMoveStart, isPanning, lastPanPoint, pan, zoom, frames])
+  }, [isDrawing, startPoint, isResizingFrame, resizeStart, resizeHandle, selectedFrameId, isMovingFrame, frameMoveStart, isPanning, lastPanPoint, pan, zoom, frames, getElementsInFrame])
 
   const handleMouseUp = useCallback(() => {
     if (isDrawing && drawingRect) {
