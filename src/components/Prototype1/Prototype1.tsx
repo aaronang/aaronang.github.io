@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react'
-import { Square, MousePointer, Type, Frame as FrameIcon } from 'lucide-react'
+import { Square, MousePointer2, Type, Frame as FrameIcon } from 'lucide-react'
 
 interface Rectangle {
   id: string
@@ -1010,50 +1010,50 @@ export default function Prototype1() {
           </div>
 
           {/* Overlay Toolbar */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white rounded-lg shadow-lg border border-gray-200 p-2 flex items-center gap-2">
-            <button
-              onClick={() => setActiveTool('select')}
-              className={`p-2 rounded-md transition-colors ${
-                activeTool === 'select' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-              }`}
-              title="Select Tool (V)"
-            >
-              <MousePointer size={20} />
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-stone-50 rounded-lg shadow-lg border border-stone-300 p-2 flex items-center gap-2">
+                         <button
+               onClick={() => setActiveTool('select')}
+               className={`p-2 rounded-md transition-colors ${
+                 activeTool === 'select' 
+                   ? 'text-white bg-blue-500' 
+                   : 'text-gray-600 hover:bg-stone-200'
+               }`}
+               title="Select Tool (V)"
+             >
+                             <MousePointer2 size={20} strokeWidth={1.5} />
             </button>
-            <button
-              onClick={() => setActiveTool(activeTool === 'rectangle' ? 'select' : 'rectangle')}
-              className={`p-2 rounded-md transition-colors ${
-                activeTool === 'rectangle' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-              }`}
-              title="Rectangle Tool (R)"
-            >
-              <Square size={20} />
+                         <button
+               onClick={() => setActiveTool(activeTool === 'rectangle' ? 'select' : 'rectangle')}
+               className={`p-2 rounded-md transition-colors ${
+                 activeTool === 'rectangle' 
+                   ? 'text-white bg-blue-500' 
+                   : 'text-gray-600 hover:bg-stone-200'
+               }`}
+               title="Rectangle Tool (R)"
+             >
+                             <Square size={20} strokeWidth={1.5} />
             </button>
-            <button
-              onClick={() => setActiveTool('text')}
-              className={`p-2 rounded-md transition-colors ${
-                activeTool === 'text' 
-                  ? 'text-blue-600 bg-blue-50' 
-                  : 'text-gray-600 hover:text-blue-600 hover:bg-blue-50'
-              }`}
-              title="Text Tool (T)"
-            >
-              <Type size={20} />
+                         <button
+               onClick={() => setActiveTool('text')}
+               className={`p-2 rounded-md transition-colors ${
+                 activeTool === 'text' 
+                   ? 'text-white bg-blue-500' 
+                   : 'text-gray-600 hover:bg-stone-200'
+               }`}
+               title="Text Tool (T)"
+             >
+                             <Type size={20} strokeWidth={1.5} />
             </button>
-            <button
-              onClick={() => setActiveTool(activeTool === 'frame' ? 'select' : 'frame')}
-              className={`p-2 rounded-md transition-colors ${
-                activeTool === 'frame' 
-                  ? 'text-purple-600 bg-purple-50' 
-                  : 'text-gray-600 hover:text-purple-600 hover:bg-purple-50'
-              }`}
-              title="Frame Tool (F)"
-            >
-              <FrameIcon size={20} />
+                         <button
+               onClick={() => setActiveTool(activeTool === 'frame' ? 'select' : 'frame')}
+               className={`p-2 rounded-md transition-colors ${
+                 activeTool === 'frame' 
+                   ? 'text-white bg-blue-500' 
+                   : 'text-gray-600 hover:bg-stone-200'
+               }`}
+               title="Frame Tool (F)"
+             >
+                             <FrameIcon size={20} strokeWidth={1.5} />
             </button>
 
           </div>
