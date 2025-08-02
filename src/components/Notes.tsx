@@ -117,22 +117,22 @@ export default function Notes() {
        <div className="flex-1 p-6">
          {selectedNoteData ? (
            <div className="h-full flex flex-col">
-             <div className="mb-4">
+             <div className="mb-4 -mt-2">
               {isEditing ? (
                 <input
                   type="text"
                   value={selectedNoteData.title}
                   onChange={(e) => handleUpdateNote('title', e.target.value)}
-                  className="w-full bg-transparent text-white text-2xl font-semibold border-none outline-none placeholder-gray-400"
+                  className="w-full bg-transparent text-white text-xl font-semibold border-none outline-none placeholder-gray-400"
                   placeholder="Note title..."
                   onBlur={() => setIsEditing(false)}
                   autoFocus
                 />
               ) : (
-                                 <h1 
-                   className="text-white text-2xl font-semibold cursor-pointer transition-colors"
-                   onClick={() => setIsEditing(true)}
-                 >
+                <h1 
+                  className="text-white text-xl font-semibold cursor-pointer transition-colors"
+                  onClick={() => setIsEditing(true)}
+                >
                   {selectedNoteData.title}
                 </h1>
               )}
@@ -145,7 +145,7 @@ export default function Notes() {
               <textarea
                 value={selectedNoteData.content}
                 onChange={(e) => handleUpdateNote('content', e.target.value)}
-                className="w-full h-full bg-transparent text-gray-300 text-base leading-relaxed border-none outline-none resize-none placeholder-gray-500"
+                className="w-full h-full bg-transparent text-gray-300 text-sm leading-relaxed border-none outline-none resize-none placeholder-gray-500"
                 placeholder="Start writing your note here..."
               />
                                       </div>
