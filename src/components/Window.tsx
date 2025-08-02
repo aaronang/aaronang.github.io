@@ -185,6 +185,10 @@ export default function Window({
           y: e.clientY - rect.top
         })
       }
+      // Bring window to front when dragging starts
+      if (!isActive && onActivate) {
+        onActivate()
+      }
     }
   }
 
@@ -199,6 +203,10 @@ export default function Window({
         x: e.clientX - rect.left,
         y: e.clientY - rect.top
       })
+    }
+    // Bring window to front when dragging starts from title bar
+    if (!isActive && onActivate) {
+      onActivate()
     }
   }
 

@@ -66,8 +66,8 @@ export default function Help() {
               rel="noopener noreferrer"
               className="text-blue-300 hover:text-blue-200 underline transition-colors"
             >
-              Unsplash.
-            </a>
+              Unsplash
+            </a>.
           </p>
         </div>
       </div>
