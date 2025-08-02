@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function About() {
   return (
                                        <div className="h-full bg-[#FBFDFC] overflow-y-auto flex justify-center font-['Geist']">

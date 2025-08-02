@@ -5,7 +5,6 @@ import Window from './components/Window'
 import About from './components/About'
 import Help from './components/Help'
 import Notes from './components/Notes'
-import WebView from './components/WebView'
 
 interface WindowState {
   id: string
