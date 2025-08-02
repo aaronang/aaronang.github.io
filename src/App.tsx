@@ -67,7 +67,7 @@ function App() {
     }))
   }
 
-  const handleWindowMaximize = (windowId: string) => {
+  const handleWindowMaximize = () => {
     // Window maximize logic is handled within the Window component
   }
 
@@ -84,7 +84,7 @@ function App() {
             isActive={windowState.isActive}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
-            onMaximize={() => handleWindowMaximize(windowId)}
+            onMaximize={handleWindowMaximize}
             defaultPosition={{ x: 100, y: 100 }}
             defaultSize={{ width: 1000, height: 700 }}
           >
@@ -99,7 +99,7 @@ function App() {
             isActive={windowState.isActive}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
-            onMaximize={() => handleWindowMaximize(windowId)}
+            onMaximize={handleWindowMaximize}
             defaultPosition={{ x: 200, y: 150 }}
             defaultSize={{ width: 600, height: 400 }}
           >
@@ -119,7 +119,7 @@ function App() {
             isActive={windowState.isActive}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
-            onMaximize={() => handleWindowMaximize(windowId)}
+            onMaximize={handleWindowMaximize}
             defaultPosition={{ x: 300, y: 200 }}
             defaultSize={{ width: 800, height: 600 }}
           >
@@ -139,7 +139,7 @@ function App() {
             isActive={windowState.isActive}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
-            onMaximize={() => handleWindowMaximize(windowId)}
+            onMaximize={handleWindowMaximize}
             defaultPosition={{ x: 400, y: 250 }}
             defaultSize={{ width: 700, height: 500 }}
           >

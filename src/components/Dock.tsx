@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Square, MousePointer2, Type, Frame as FrameIcon, Home, Settings, Palette } from 'lucide-react'
+import { MousePointer2, Home, Settings, Palette } from 'lucide-react'
 
 interface DockItem {
   id: string

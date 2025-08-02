@@ -152,29 +152,7 @@ export default function Window({
     return direction
   }
 
-  const getCursor = (e: React.MouseEvent) => {
-    if (isMaximized) return 'cursor-default'
-    
-    const direction = getResizeDirection(e)
-    if (!direction) return 'cursor-default'
-    
-    switch (direction) {
-      case 'n':
-      case 's':
-        return 'cursor-ns-resize'
-      case 'e':
-      case 'w':
-        return 'cursor-ew-resize'
-      case 'ne':
-      case 'sw':
-        return 'cursor-ne-resize'
-      case 'nw':
-      case 'se':
-        return 'cursor-nw-resize'
-      default:
-        return 'cursor-default'
-    }
-  }
+
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (isMaximized) return
@@ -444,18 +422,12 @@ export default function Window({
              hoverDirection.includes('e') || hoverDirection.includes('w') ? 'ew-resize' :
              'default'
          }}
-         onMouseMove={(e) => {
-           if (!isDragging && !isResizing && !isMaximized) {
-             const direction = getResizeDirection(e)
-             setHoverDirection(direction)
-           }
-         }}
-         onMouseDown={handleMouseDown}
-         onMouseMove={handleMouseMove}
-         onMouseUp={handleMouseUp}
-         onMouseLeave={(e) => {
-           setHoverDirection('')
-         }}
+                   onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={() => {
+            setHoverDirection('')
+          }}
        >
          {/* Title Bar */}
          <div 
