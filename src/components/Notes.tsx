@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 interface Note {
   id: string
@@ -33,8 +33,11 @@ export default function Notes() {
       updatedAt: new Date()
     }
     setNotes(prev => [newNote, ...prev])
-    setSelectedNote(newNote.id)
-    setIsEditing(true)
+    // Small delay to allow the note to be added to the DOM before changing selection
+    setTimeout(() => {
+      setSelectedNote(newNote.id)
+      setIsEditing(true)
+    }, 50)
   }
 
   const handleUpdateNote = (field: 'title' | 'content', value: string) => {
@@ -55,16 +58,16 @@ export default function Notes() {
     }
   }
 
-  return (
-    <div className="h-full bg-stone-950/80 backdrop-blur-xl flex">
+           return (
+      <div className="h-full bg-stone-950/80 backdrop-blur-xl flex">
       {/* Sidebar */}
       <div className="w-64 border-r border-white/10 p-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-white font-semibold text-lg">Notes</h2>
-          <button
-            onClick={handleCreateNote}
-            className="w-8 h-8 rounded-full bg-blue-500 hover:bg-blue-600 text-white flex items-center justify-center transition-colors"
-          >
+                     <button
+             onClick={handleCreateNote}
+             className="w-6 h-6 rounded-md hover:bg-white/10 text-white transition-all duration-200 flex items-center justify-center"
+           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <line x1="12" y1="5" x2="12" y2="19"></line>
               <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -72,17 +75,17 @@ export default function Notes() {
           </button>
         </div>
         
-        <div className="space-y-2">
-          {notes.map(note => (
-            <div
-              key={note.id}
-              onClick={() => setSelectedNote(note.id)}
-              className={`p-3 rounded-lg cursor-pointer transition-colors ${
-                selectedNote === note.id 
-                  ? 'bg-white/20 text-white' 
-                  : 'text-gray-300 hover:bg-white/10 hover:text-white'
-              }`}
-            >
+                                            <div className="space-y-2">
+                       {notes.map((note) => (
+             <div
+               key={note.id}
+               onClick={() => setSelectedNote(note.id)}
+                               className={`p-3 rounded-lg cursor-pointer transition-all duration-200 ease-out ${
+                  selectedNote === note.id 
+                    ? 'bg-white/20 text-white' 
+                    : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                }`}
+             >
               <div className="flex items-start justify-between">
                 <div className="flex-1 min-w-0">
                   <h3 className="font-medium truncate">{note.title}</h3>
@@ -104,17 +107,17 @@ export default function Notes() {
                     </svg>
                   </button>
                 )}
-              </div>
-            </div>
-          ))}
-        </div>
+                                            </div>
+             </div>
+           ))}
+         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 p-6">
-        {selectedNoteData ? (
-          <div className="h-full flex flex-col">
-            <div className="mb-4">
+                                  {/* Main Content */}
+       <div className="flex-1 p-6">
+         {selectedNoteData ? (
+           <div className="h-full flex flex-col">
+             <div className="mb-4">
               {isEditing ? (
                 <input
                   type="text"
@@ -126,10 +129,10 @@ export default function Notes() {
                   autoFocus
                 />
               ) : (
-                <h1 
-                  className="text-white text-2xl font-semibold cursor-pointer hover:bg-white/10 p-2 -m-2 rounded transition-colors"
-                  onClick={() => setIsEditing(true)}
-                >
+                                 <h1 
+                   className="text-white text-2xl font-semibold cursor-pointer transition-colors"
+                   onClick={() => setIsEditing(true)}
+                 >
                   {selectedNoteData.title}
                 </h1>
               )}
@@ -145,9 +148,9 @@ export default function Notes() {
                 className="w-full h-full bg-transparent text-gray-300 text-base leading-relaxed border-none outline-none resize-none placeholder-gray-500"
                 placeholder="Start writing your note here..."
               />
-            </div>
-          </div>
-        ) : (
+                                      </div>
+           </div>
+         ) : (
           <div className="h-full flex items-center justify-center">
             <div className="text-center">
               <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -162,9 +165,9 @@ export default function Notes() {
               <h3 className="text-white font-medium mb-2">No note selected</h3>
               <p className="text-gray-400 text-sm">Create a new note or select one from the sidebar</p>
             </div>
-          </div>
-        )}
-      </div>
+                                </div>
+         )}
+     </div>
     </div>
   )
 } 

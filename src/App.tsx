@@ -106,11 +106,11 @@ function App() {
     if (!windowState?.isOpen || windowState.isMinimized) return null
 
     switch (windowId) {
-      case 'prototype1':
-        return (
-          <Window
-            key={windowId}
-            title="Canvas Prototype"
+             case 'prototype1':
+         return (
+           <Window
+             key={windowId}
+             title="Draw"
             isActive={windowState.isActive}
             zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}

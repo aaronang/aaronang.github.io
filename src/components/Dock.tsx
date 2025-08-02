@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Settings, Palette } from 'lucide-react'
 
 // Custom Feather Icon Component
 const FeatherIcon = ({ size = 24 }: { size?: number; strokeWidth?: number }) => (
@@ -115,10 +114,10 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
       isActive: activeItem === 'home' && windows?.['home']?.isOpen,
       isOpen: windows?.['home']?.isOpen || false
     },
-    {
-      id: 'prototype1',
-      label: 'Canvas Prototype',
-      icon: LayersIcon,
+         {
+       id: 'prototype1',
+       label: 'Draw',
+       icon: LayersIcon,
       isActive: activeItem === 'prototype1' && windows?.['prototype1']?.isOpen,
       isOpen: windows?.['prototype1']?.isOpen || false
     },
