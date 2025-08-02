@@ -46,16 +46,18 @@ export default function About() {
                              {/* Favorite Product Books */}
                <div className="bg-[#00402008] rounded-[6px] p-4">
                                 <h3 className="text-[#000A07A0] text-sm font-medium mb-4">My favorite product books.</h3>
-                 <div className="grid grid-cols-2 gap-4">
-                   <div className="bg-purple-900 text-white p-4 rounded-lg">
-                     <div className="text-sm font-medium mb-2">CONTINUOUS DISCOVERY HABITS</div>
-                     <div className="text-xs opacity-80">by Teresa Torres</div>
-                   </div>
-                   <div className="bg-pink-500 text-white p-4 rounded-lg">
-                     <div className="text-sm font-medium mb-2">THE MOM TEST</div>
-                     <div className="text-xs opacity-80">by Rob Fitzpatrick</div>
-                   </div>
-                 </div>
+                                                                                                                                               <div className="grid grid-cols-2 gap-[10px]">
+                      <img 
+                        src="/discoveryhabits.png" 
+                        alt="Continuous Discovery Habits by Teresa Torres" 
+                        className="w-full h-[174px] object-cover rounded-[6px]"
+                      />
+                      <img 
+                        src="/momtest.png" 
+                        alt="The Mom Test by Rob Fitzpatrick" 
+                        className="w-full h-[174px] object-cover rounded-[6px]"
+                      />
+                    </div>
                </div>
             </div>
 
