@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useEffect } from 'react'
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { Square, MousePointer2, Type, Frame as FrameIcon } from 'lucide-react'
 
 interface Rectangle {
@@ -81,7 +81,7 @@ export default function Prototype1() {
   const canvasRef = useRef<HTMLDivElement>(null)
   const editingTextRef = useRef<HTMLInputElement>(null)
 
-  const colors = ['#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899']
+  const colors = useMemo(() => ['#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6', '#EC4899'], [])
 
   // Focus the input when editingTextId changes
   useEffect(() => {
@@ -165,6 +165,39 @@ export default function Prototype1() {
     return point.x >= text.x && point.x <= text.x + textWidth &&
            point.y >= text.y - textHeight && point.y <= text.y + textHeight
   }, [])
+
+  // Helper function to get elements within a frame
+  const getElementsInFrame = useCallback((frameId: string) => {
+    const frame = frames.find(f => f.id === frameId)
+    if (!frame) return { rectangles: [], textElements: [] }
+
+    const frameRectangles = rectangles.filter(rect => {
+      const rectCenterX = rect.x + rect.width / 2
+      const rectCenterY = rect.y + rect.height / 2
+      return rectCenterX >= frame.x && rectCenterX <= frame.x + frame.width &&
+             rectCenterY >= frame.y && rectCenterY <= frame.y + frame.height
+    })
+
+    const frameTextElements = textElements.filter(text => {
+      return text.x >= frame.x && text.x <= frame.x + frame.width &&
+             text.y >= frame.y && text.y <= frame.y + frame.height
+    })
+
+    return { rectangles: frameRectangles, textElements: frameTextElements }
+  }, [frames, rectangles, textElements])
+
+  // Helper function to get elements not in any frame
+  const getElementsNotInFrame = useCallback(() => {
+    const allFrameElements = frames.flatMap(frame => {
+      const elements = getElementsInFrame(frame.id)
+      return [...elements.rectangles.map(r => r.id), ...elements.textElements.map(t => t.id)]
+    })
+
+    const freeRectangles = rectangles.filter(rect => !allFrameElements.includes(rect.id))
+    const freeTextElements = textElements.filter(text => !allFrameElements.includes(text.id))
+
+    return { rectangles: freeRectangles, textElements: freeTextElements }
+  }, [frames, getElementsInFrame, rectangles, textElements])
 
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
     if (!canvasRef.current) return
@@ -317,7 +350,7 @@ export default function Prototype1() {
         setLastPanPoint({ x: e.clientX, y: e.clientY })
       }
     }
-  }, [activeTool, pan, zoom, frames, selectedFrameId, isPointInRectangle, isPointNearText, selectObject, clearSelection])
+  }, [activeTool, pan, zoom, frames, selectedFrameId, isPointInRectangle, isPointNearText, selectObject, clearSelection, getElementsInFrame, getElementsNotInFrame])
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!canvasRef.current) return
@@ -652,39 +685,6 @@ export default function Prototype1() {
     })
     setEditingTextId(null)
   }, [newlyCreatedTextId])
-
-  // Helper function to get elements within a frame
-  const getElementsInFrame = (frameId: string) => {
-    const frame = frames.find(f => f.id === frameId)
-    if (!frame) return { rectangles: [], textElements: [] }
-
-    const frameRectangles = rectangles.filter(rect => {
-      const rectCenterX = rect.x + rect.width / 2
-      const rectCenterY = rect.y + rect.height / 2
-      return rectCenterX >= frame.x && rectCenterX <= frame.x + frame.width &&
-             rectCenterY >= frame.y && rectCenterY <= frame.y + frame.height
-    })
-
-    const frameTextElements = textElements.filter(text => {
-      return text.x >= frame.x && text.x <= frame.x + frame.width &&
-             text.y >= frame.y && text.y <= frame.y + frame.height
-    })
-
-    return { rectangles: frameRectangles, textElements: frameTextElements }
-  }
-
-  // Helper function to get elements not in any frame
-  const getElementsNotInFrame = () => {
-    const allFrameElements = frames.flatMap(frame => {
-      const elements = getElementsInFrame(frame.id)
-      return [...elements.rectangles.map(r => r.id), ...elements.textElements.map(t => t.id)]
-    })
-
-    const freeRectangles = rectangles.filter(rect => !allFrameElements.includes(rect.id))
-    const freeTextElements = textElements.filter(text => !allFrameElements.includes(text.id))
-
-    return { rectangles: freeRectangles, textElements: freeTextElements }
-  }
 
   // Helper function to get resize handle positions
   const getResizeHandles = (frame: Frame, handleSize: number) => {

@@ -184,26 +184,26 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
                     </div>
                     
                                        {/* Active Indicator - Left Edge */}
-                     {isActive && (
-                       <div 
-                         className="absolute left-0 top-1/2 transform -translate-y-1/2 w-0.5 h-4 rounded-full"
-                         style={{
-                           background: 'linear-gradient(180deg, #60a5fa, #3b82f6)',
-                           boxShadow: '0 0 4px rgba(59, 130, 246, 0.6)'
-                         }}
-                       />
-                     )}
+                     <div 
+                       className={`absolute left-0 top-1/2 transform -translate-y-1/2 w-0.75 rounded-full transition-all duration-200 ease-out ${
+                         isActive ? 'h-4 opacity-100' : 'h-0 opacity-0'
+                       }`}
+                       style={{
+                         background: 'linear-gradient(180deg, #60a5fa, #3b82f6)',
+                         boxShadow: isActive ? '0 0 4px rgba(59, 130, 246, 0.6)' : 'none'
+                       }}
+                     />
                      
                      {/* Opened Indicator - Left Edge */}
-                     {isOpen && !isActive && (
-                       <div 
-                         className="absolute left-0 top-1/2 transform -translate-y-1/2 w-0.5 h-2 rounded-full"
-                         style={{
-                           background: 'rgba(255, 255, 255, 0.4)',
-                           boxShadow: '0 0 2px rgba(255, 255, 255, 0.2)'
-                         }}
-                       />
-                     )}
+                     <div 
+                       className={`absolute left-0 top-1/2 transform -translate-y-1/2 w-0.75 rounded-full transition-all duration-200 ease-out ${
+                         isOpen && !isActive ? 'h-1 opacity-100' : 'h-0 opacity-0'
+                       }`}
+                       style={{
+                         background: 'rgba(255, 255, 255, 0.4)',
+                         boxShadow: isOpen && !isActive ? '0 0 2px rgba(255, 255, 255, 0.2)' : 'none'
+                       }}
+                     />
                   </div>
                   
                   {/* Tooltip */}

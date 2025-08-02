@@ -6,7 +6,14 @@ export default function About() {
       <div className="space-y-4">
         <div>
           <p className="text-gray-100 text-sm leading-relaxed">
-            This playground was created by me with{' '}
+            This playground was created by{' '}<a 
+              href="https://www.linkedin.com/in/awzang/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-blue-300 hover:text-blue-200 underline transition-colors"
+            >
+              Aaron Ang
+            </a> with{' '}
             <a 
               href="https://cursor.sh/" 
               target="_blank" 
