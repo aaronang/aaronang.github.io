@@ -7,9 +7,11 @@ interface WindowProps {
   defaultPosition?: { x: number; y: number }
   defaultSize?: { width: number; height: number }
   isActive?: boolean
+  zIndex?: number
   onClose?: () => void
   onMinimize?: () => void
   onMaximize?: () => void
+  onActivate?: () => void
 }
 
 export default function Window({ 
@@ -18,9 +20,11 @@ export default function Window({
   defaultPosition = { x: 50, y: 50 },
   defaultSize = { width: 800, height: 600 },
   isActive = true,
+  zIndex = 1000,
   onClose,
   onMinimize,
-  onMaximize
+  onMaximize,
+  onActivate
 }: WindowProps) {
   const [position, setPosition] = useState(defaultPosition)
   const [size, setSize] = useState(defaultSize)
@@ -388,45 +392,49 @@ export default function Window({
        )}
 
        {/* Main Window */}
-       <div
-         ref={windowRef}
-         className={`absolute shadow-2xl overflow-hidden ${
-           isActive ? 'z-40' : 'z-30'
-         } ${
-           isDragging || isResizing ? 'cursor-grabbing' :
-           hoverDirection.includes('n') && hoverDirection.includes('e') ? 'cursor-ne-resize' :
-           hoverDirection.includes('n') && hoverDirection.includes('w') ? 'cursor-nw-resize' :
-           hoverDirection.includes('s') && hoverDirection.includes('e') ? 'cursor-se-resize' :
-           hoverDirection.includes('s') && hoverDirection.includes('w') ? 'cursor-sw-resize' :
-           hoverDirection.includes('n') || hoverDirection.includes('s') ? 'cursor-ns-resize' :
-           hoverDirection.includes('e') || hoverDirection.includes('w') ? 'cursor-ew-resize' :
-           'cursor-default'
-         } ${isMaximized ? '' : 'rounded-lg'}`}
-         style={{
-           left: 0,
-           top: 0,
-           width: size.width,
-           height: size.height,
-                       transition: isDragging || isResizing ? 'none' : 'all 0.2s ease',
-           background: 'rgba(0, 0, 0, 0.6)',
-           backdropFilter: 'blur(40px) saturate(200%)',
-           WebkitBackdropFilter: 'blur(40px) saturate(200%)',
-           border: '1px solid rgba(255, 255, 255, 0.2)',
-           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-           cursor: isDragging || isResizing ? 'grabbing' :
-             hoverDirection.includes('n') && hoverDirection.includes('e') ? 'ne-resize' :
-             hoverDirection.includes('n') && hoverDirection.includes('w') ? 'nw-resize' :
-             hoverDirection.includes('s') && hoverDirection.includes('e') ? 'se-resize' :
-             hoverDirection.includes('s') && hoverDirection.includes('w') ? 'sw-resize' :
-             hoverDirection.includes('n') || hoverDirection.includes('s') ? 'ns-resize' :
-             hoverDirection.includes('e') || hoverDirection.includes('w') ? 'ew-resize' :
-             'default'
-         }}
+                       <div
+          ref={windowRef}
+          className={`absolute shadow-2xl overflow-hidden ${
+            isDragging || isResizing ? 'cursor-grabbing' :
+            hoverDirection.includes('n') && hoverDirection.includes('e') ? 'cursor-ne-resize' :
+            hoverDirection.includes('n') && hoverDirection.includes('w') ? 'cursor-nw-resize' :
+            hoverDirection.includes('s') && hoverDirection.includes('e') ? 'cursor-se-resize' :
+            hoverDirection.includes('s') && hoverDirection.includes('w') ? 'cursor-sw-resize' :
+            hoverDirection.includes('n') || hoverDirection.includes('s') ? 'cursor-ns-resize' :
+            hoverDirection.includes('e') || hoverDirection.includes('w') ? 'cursor-ew-resize' :
+            'cursor-default'
+          } ${isMaximized ? '' : 'rounded-lg'}`}
+                    style={{
+            left: 0,
+            top: 0,
+            width: size.width,
+            height: size.height,
+            zIndex: zIndex,
+                        transition: isDragging || isResizing ? 'none' : 'all 0.2s ease',
+            background: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(40px) saturate(200%)',
+            WebkitBackdropFilter: 'blur(40px) saturate(200%)',
+            border: '1px solid rgba(255, 255, 255, 0.2)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+            cursor: isDragging || isResizing ? 'grabbing' :
+              hoverDirection.includes('n') && hoverDirection.includes('e') ? 'ne-resize' :
+              hoverDirection.includes('n') && hoverDirection.includes('w') ? 'nw-resize' :
+              hoverDirection.includes('s') && hoverDirection.includes('e') ? 'se-resize' :
+              hoverDirection.includes('s') && hoverDirection.includes('w') ? 'sw-resize' :
+              hoverDirection.includes('n') || hoverDirection.includes('s') ? 'ns-resize' :
+              hoverDirection.includes('e') || hoverDirection.includes('w') ? 'ew-resize' :
+              'default'
+          }}
                    onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
           onMouseLeave={() => {
             setHoverDirection('')
+          }}
+          onClick={() => {
+            if (!isActive && onActivate) {
+              onActivate()
+            }
           }}
        >
          {/* Title Bar */}

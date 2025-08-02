@@ -221,7 +221,7 @@ export default function Prototype1() {
           const handleSize = 16 / zoom // Handle size in canvas coordinates
           const handles = getResizeHandles(frame, handleSize)
           
-          const clickedHandle = Object.entries(handles).find(([_key, handle]) => 
+          const clickedHandle = Object.entries(handles).find(([, handle]) => 
             x >= handle.x && x <= handle.x + handleSize &&
             y >= handle.y && y <= handle.y + handleSize
           )

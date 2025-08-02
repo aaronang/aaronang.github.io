@@ -2,21 +2,25 @@ import { useState } from 'react'
 import Prototype1 from './components/Prototype1'
 import Dock from './components/Dock'
 import Window from './components/Window'
+import About from './components/About'
+import Notes from './components/Notes'
 
 interface WindowState {
   id: string
   isOpen: boolean
   isMinimized: boolean
   isActive: boolean
+  zIndex: number
 }
 
 function App() {
   const [activePage, setActivePage] = useState('prototype1')
   const [windows, setWindows] = useState<Record<string, WindowState>>({
-    prototype1: { id: 'prototype1', isOpen: true, isMinimized: false, isActive: true },
-    home: { id: 'home', isOpen: false, isMinimized: false, isActive: false },
-    design: { id: 'design', isOpen: false, isMinimized: false, isActive: false },
-    settings: { id: 'settings', isOpen: false, isMinimized: false, isActive: false }
+    prototype1: { id: 'prototype1', isOpen: true, isMinimized: false, isActive: true, zIndex: 1000 },
+    home: { id: 'home', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
+    design: { id: 'design', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
+    settings: { id: 'settings', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
+            about: { id: 'about', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 }
   })
 
   const handleDockItemClick = (itemId: string) => {
@@ -24,16 +28,24 @@ function App() {
     
     // Open window if not already open
     if (!windows[itemId]?.isOpen) {
-      setWindows(prev => ({
-        ...prev,
-        [itemId]: { id: itemId, isOpen: true, isMinimized: false, isActive: true }
-      }))
+      setWindows(prev => {
+        // Find the highest z-index currently in use
+        const maxZIndex = Math.max(...Object.values(prev).map(w => w.zIndex), 1000)
+        return {
+          ...prev,
+          [itemId]: { id: itemId, isOpen: true, isMinimized: false, isActive: true, zIndex: maxZIndex + 1 }
+        }
+      })
     } else {
       // Activate window if already open
-      setWindows(prev => ({
-        ...prev,
-        [itemId]: { ...prev[itemId], isActive: true, isMinimized: false }
-      }))
+      setWindows(prev => {
+        // Find the highest z-index currently in use
+        const maxZIndex = Math.max(...Object.values(prev).map(w => w.zIndex), 1000)
+        return {
+          ...prev,
+          [itemId]: { ...prev[itemId], isActive: true, isMinimized: false, zIndex: maxZIndex + 1 }
+        }
+      })
     }
     
     // Deactivate other windows
@@ -71,6 +83,24 @@ function App() {
     // Window maximize logic is handled within the Window component
   }
 
+  const handleWindowActivate = (windowId: string) => {
+    setActivePage(windowId)
+    setWindows(prev => {
+      const updated = { ...prev }
+      // Find the highest z-index currently in use
+      const maxZIndex = Math.max(...Object.values(prev).map(w => w.zIndex), 1000)
+      // Activate the clicked window and give it the highest z-index
+      updated[windowId] = { ...updated[windowId], isActive: true, isMinimized: false, zIndex: maxZIndex + 1 }
+      // Deactivate all other windows
+      Object.keys(updated).forEach(key => {
+        if (key !== windowId) {
+          updated[key] = { ...updated[key], isActive: false }
+        }
+      })
+      return updated
+    })
+  }
+
   const renderWindow = (windowId: string) => {
     const windowState = windows[windowId]
     if (!windowState?.isOpen || windowState.isMinimized) return null
@@ -82,9 +112,11 @@ function App() {
             key={windowId}
             title="Canvas Prototype"
             isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
             onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
             defaultPosition={{ x: 100, y: 100 }}
             defaultSize={{ width: 1000, height: 700 }}
           >
@@ -95,20 +127,17 @@ function App() {
         return (
           <Window
             key={windowId}
-            title="Welcome"
+            title="Notes"
             isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
             onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
             defaultPosition={{ x: 200, y: 150 }}
-            defaultSize={{ width: 600, height: 400 }}
+            defaultSize={{ width: 800, height: 600 }}
           >
-            <div className="flex items-center justify-center h-full bg-stone-50">
-              <div className="text-center">
-                <h1 className="text-4xl font-bold text-stone-800 mb-4">Welcome</h1>
-                <p className="text-stone-600 text-lg">Select an application from the taskbar below</p>
-              </div>
-            </div>
+            <Notes />
           </Window>
         )
       case 'design':
@@ -117,9 +146,11 @@ function App() {
             key={windowId}
             title="Design System"
             isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
             onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
             defaultPosition={{ x: 300, y: 200 }}
             defaultSize={{ width: 800, height: 600 }}
           >
@@ -137,9 +168,11 @@ function App() {
             key={windowId}
             title="Settings"
             isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}
             onMinimize={() => handleWindowMinimize(windowId)}
             onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
             defaultPosition={{ x: 400, y: 250 }}
             defaultSize={{ width: 700, height: 500 }}
           >
@@ -149,6 +182,23 @@ function App() {
                 <p className="text-stone-600 text-lg">Coming soon...</p>
               </div>
             </div>
+          </Window>
+        )
+      case 'about':
+        return (
+          <Window
+            key={windowId}
+            title="About"
+            isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
+            onClose={() => handleWindowClose(windowId)}
+            onMinimize={() => handleWindowMinimize(windowId)}
+            onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
+            defaultPosition={{ x: 350, y: 200 }}
+            defaultSize={{ width: 600, height: 500 }}
+          >
+            <About />
           </Window>
         )
       default:
