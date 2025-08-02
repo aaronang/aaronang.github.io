@@ -12,7 +12,7 @@ export function Toolbar({ activeTool, onToolChange }: ToolbarProps) {
   }
 
   return (
-    <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg border border-gray-200 p-2 flex items-center gap-2">
+    <div className="absolute top-4 left-4 bg-stone-50 rounded-lg shadow-lg border border-stone-200 p-2 flex items-center gap-2">
       <button
         onClick={() => onToolChange('select')}
         className={`p-2 rounded-md transition-colors ${
