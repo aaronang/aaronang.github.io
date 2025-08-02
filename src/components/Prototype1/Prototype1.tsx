@@ -721,13 +721,13 @@ export default function Prototype1() {
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-stone-300 h-[500px] overflow-hidden">
+    <div className="bg-stone-200 h-full overflow-hidden">
       {/* Canvas with Overlay Toolbar */}
       <div className="relative h-full">
         {/* Canvas */}
         <div
           ref={canvasRef}
-          className={`w-full h-full bg-white relative overflow-hidden ${
+          className={`w-full h-full bg-stone-200 relative overflow-hidden ${
             activeTool === 'rectangle' ? 'cursor-crosshair' : 
             activeTool === 'text' ? 'cursor-text' :
             activeTool === 'frame' ? 'cursor-crosshair' : 
@@ -1010,7 +1010,7 @@ export default function Prototype1() {
           </div>
 
           {/* Overlay Toolbar */}
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-stone-50 rounded-lg shadow-lg border border-stone-300 p-2 flex items-center gap-2">
+          <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-stone-50 rounded-lg shadow-lg border border-stone-300 p-2 flex items-center gap-2 z-50">
                          <button
                onClick={() => setActiveTool('select')}
                className={`p-2 rounded-md transition-colors ${
