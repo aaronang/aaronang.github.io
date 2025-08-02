@@ -26,7 +26,7 @@ export default function Help() {
         
         <div>
           <p className="text-gray-100 text-sm leading-relaxed">
-            Icons used in this application are from{' '}
+            Icons are from{' '}
             <a 
               href="https://nucleoapp.com/" 
               target="_blank" 

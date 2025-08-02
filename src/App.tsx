@@ -190,7 +190,7 @@ function App() {
         return (
           <Window
             key={windowId}
-            title="About - Aaron Ang"
+            title="About"
             isActive={windowState.isActive}
             zIndex={windowState.zIndex}
             onClose={() => handleWindowClose(windowId)}
