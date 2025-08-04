@@ -5,7 +5,7 @@ import Window from './components/Window'
 import About from './components/About'
 import Help from './components/Help'
 import Notes from './components/Notes'
-import Motion from './components/StarSparkle'
+import Motion from './components/Motion'
 
 interface WindowState {
   id: string
