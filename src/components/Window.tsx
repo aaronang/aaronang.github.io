@@ -402,16 +402,16 @@ export default function Window({
        {/* Main Window */}
                        <div
           ref={windowRef}
-          className={`absolute shadow-2xl overflow-hidden ${
-            isDragging || isResizing ? 'cursor-grabbing' :
-            hoverDirection.includes('n') && hoverDirection.includes('e') ? 'cursor-ne-resize' :
-            hoverDirection.includes('n') && hoverDirection.includes('w') ? 'cursor-nw-resize' :
-            hoverDirection.includes('s') && hoverDirection.includes('e') ? 'cursor-se-resize' :
-            hoverDirection.includes('s') && hoverDirection.includes('w') ? 'cursor-sw-resize' :
-            hoverDirection.includes('n') || hoverDirection.includes('s') ? 'cursor-ns-resize' :
-            hoverDirection.includes('e') || hoverDirection.includes('w') ? 'cursor-ew-resize' :
-            'cursor-default'
-          } ${isMaximized ? '' : 'rounded-lg'}`}
+                     className={`absolute shadow-2xl overflow-hidden flex flex-col ${
+             isDragging || isResizing ? 'cursor-grabbing' :
+             hoverDirection.includes('n') && hoverDirection.includes('e') ? 'cursor-ne-resize' :
+             hoverDirection.includes('n') && hoverDirection.includes('w') ? 'cursor-nw-resize' :
+             hoverDirection.includes('s') && hoverDirection.includes('e') ? 'cursor-se-resize' :
+             hoverDirection.includes('s') && hoverDirection.includes('w') ? 'cursor-sw-resize' :
+             hoverDirection.includes('n') || hoverDirection.includes('s') ? 'cursor-ns-resize' :
+             hoverDirection.includes('e') || hoverDirection.includes('w') ? 'cursor-ew-resize' :
+             'cursor-default'
+           } ${isMaximized ? '' : 'rounded-lg'}`}
                     style={{
             left: 0,
             top: 0,
@@ -443,11 +443,11 @@ export default function Window({
             if (!isActive && onActivate) {
               onActivate()
             }
-          }}
-       >
+                     }}
+        >
          {/* Title Bar */}
          <div 
-           className={`h-10 flex items-center justify-between px-3 border-b border-white/10`}
+           className={`h-10 flex items-center justify-between px-3 border-b border-white/10 flex-shrink-0`}
            style={{
              background: 'rgba(255, 255, 255, 0.08)',
              backdropFilter: 'blur(20px) saturate(150%)',
@@ -493,7 +493,7 @@ export default function Window({
         </div>
 
          {/* Window Content */}
-         <div className="h-full overflow-hidden">
+         <div className="flex-1 overflow-hidden">
            {children}
          </div>
        </div>

@@ -5,6 +5,7 @@ import Window from './components/Window'
 import About from './components/About'
 import Help from './components/Help'
 import Notes from './components/Notes'
+import Motion from './components/StarSparkle'
 
 interface WindowState {
   id: string
@@ -22,7 +23,8 @@ function App() {
     design: { id: 'design', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
     settings: { id: 'settings', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
     help: { id: 'help', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
-    webview: { id: 'webview', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 }
+    webview: { id: 'webview', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 },
+    starsparkle: { id: 'starsparkle', isOpen: false, isMinimized: false, isActive: false, zIndex: 0 }
   })
 
   const handleDockItemClick = (itemId: string) => {
@@ -218,6 +220,23 @@ function App() {
             defaultSize={{ width: 600, height: 500 }}
           >
             <Help />
+          </Window>
+        )
+      case 'starsparkle':
+        return (
+          <Window
+            key={windowId}
+            title="Motion"
+            isActive={windowState.isActive}
+            zIndex={windowState.zIndex}
+            onClose={() => handleWindowClose(windowId)}
+            onMinimize={() => handleWindowMinimize(windowId)}
+            onMaximize={handleWindowMaximize}
+            onActivate={() => handleWindowActivate(windowId)}
+            defaultPosition={{ x: 250, y: 150 }}
+            defaultSize={{ width: 1200, height: 800 }}
+          >
+            <Motion />
           </Window>
         )
       default:
