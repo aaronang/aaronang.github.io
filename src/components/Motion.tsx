@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, RotateCcw } from 'lucide-react'
 
 interface Message {
   id: number
@@ -8,9 +8,16 @@ interface Message {
   timestamp: Date
 }
 
+interface Toast {
+  id: number;
+  visible: boolean;
+}
+
 const Motion: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([])
   const [inputValue, setInputValue] = useState('')
+  const [toasts, setToasts] = useState<Toast[]>([])
+
 
   const handleSendMessage = () => {
     if (inputValue.trim()) {
@@ -46,18 +53,36 @@ const Motion: React.FC = () => {
      return (
            <div className="flex h-full bg-stone-50 text-sm overflow-hidden font-['Geist']">
       {/* Left Side - Previewer */}
-      <div className="flex-1 border-r border-stone-200 bg-white">
-        {/* Preview Canvas */}
-                 <div className="h-full flex items-center justify-center bg-white p-8">
-          <div className="w-64 h-64 bg-white rounded-lg shadow-lg border border-stone-200 flex items-center justify-center">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full mx-auto mb-4 animate-pulse"></div>
-              <p className="text-stone-600 text-sm">Preview Area</p>
-              <p className="text-stone-400 text-xs mt-1">Your animation will appear here</p>
-            </div>
-          </div>
-        </div>
-      </div>
+             <div className="flex-1 border-r border-stone-200 bg-white relative">
+         {/* Preview Canvas */}
+                  <div className="h-full flex items-center justify-center bg-white p-8">
+           <button
+             onClick={() => {
+               const newToast = { id: Date.now(), visible: true }
+               setToasts([...toasts, newToast])
+               setTimeout(() => {
+                 setToasts(prev => prev.filter(t => t.id !== newToast.id))
+               }, 5000)
+             }}
+                          className="px-4 py-2 bg-stone-900 text-white rounded-md text-sm"
+           >
+             Show Toast
+           </button>
+         </div>
+         
+                   {/* Toast Container */}
+          <div className="absolute bottom-8 right-8 flex flex-col items-end space-y-2">
+           {toasts.map(toast => (
+             <div
+               key={toast.id}
+               className="bg-white border border-stone-300 text-stone-800 px-4 py-3 rounded-xl text-sm shadow-lg max-w-xs"
+             >
+               <div className="font-medium text-stone-900 mb-0.5">Changes saved</div>
+               <div className="text-stone-600">Your preferences have been updated successfully.</div>
+             </div>
+           ))}
+         </div>
+       </div>
 
                                          {/* Right Side - Chat */}
         <div className="w-96 flex flex-col bg-stone-50 h-full">
@@ -81,28 +106,37 @@ const Motion: React.FC = () => {
         
                                    {/* Input Area */}
          <div className="p-3 pt-0 flex-shrink-0 h-auto">
-           <div className="relative">
-             <textarea
-               value={inputValue}
-               onChange={(e) => setInputValue(e.target.value)}
-               onKeyPress={handleKeyPress}
-               placeholder="Describe your animation (e.g., 'Make the button bounce when clicked')"
-                               className="w-full px-2.5 py-2 pr-12 border border-stone-300 rounded-md resize-none focus:outline-none min-h-[80px] max-h-[200px] bg-white shadow-xs placeholder:text-stone-400"
-               style={{ height: 'auto' }}
-               onInput={(e) => {
-                 const target = e.target as HTMLTextAreaElement
-                 target.style.height = 'auto'
-                 target.style.height = Math.min(target.scrollHeight, 200) + 'px'
-               }}
-             />
-             <button
-               onClick={handleSendMessage}
-               disabled={!inputValue.trim()}
-               className="absolute bottom-2 right-2 p-1.5 bg-stone-900 text-white rounded-full hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-             >
-               <ArrowUp size={14} />
-             </button>
-           </div>
+                       <div className="relative">
+              <textarea
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                onKeyPress={handleKeyPress}
+                placeholder="Animate the toast notification to appear when the button is clicked."
+                className="w-full px-2.5 py-2 pb-10 border border-stone-300 rounded-md resize-none focus:outline-none min-h-[80px] max-h-[200px] bg-white shadow-xs placeholder:text-stone-400"
+                style={{ height: 'auto' }}
+                onInput={(e) => {
+                  const target = e.target as HTMLTextAreaElement
+                  target.style.height = 'auto'
+                  target.style.height = Math.min(target.scrollHeight, 200) + 'px'
+                }}
+              />
+
+              <div className="absolute bottom-2 left-2 right-2 flex justify-between items-center">
+                <button
+                  className="p-1.5 text-stone-600 rounded-md hover:bg-stone-100 transition-colors"
+                >
+                  <RotateCcw size={14} />
+                </button>
+
+                <button
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim()}
+                  className="p-1.5 bg-stone-900 text-white rounded-full hover:bg-stone-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                >
+                  <ArrowUp size={14} />
+                </button>
+              </div>
+            </div>
            
          </div>
       </div>
