@@ -273,7 +273,7 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
         <div className="flex flex-col items-center justify-between gap-1 px-2 py-4 h-full">
           {/* Main Dock Items */}
           <div className="flex flex-col items-center gap-1">
-            {dockItems.slice(0, 4).map((item) => {
+            {dockItems.slice(0, dockItems.length - 1).map((item) => {
               const Icon = item.icon
               const isHovered = hoveredItem === item.id
               const isActive = item.isActive
@@ -356,7 +356,7 @@ export default function Dock({ activeItem, onItemClick, windows }: DockProps) {
           
           {/* Help Item at Bottom */}
           <div className="flex flex-col items-center gap-1">
-            {dockItems.slice(3).map((item) => {
+            {dockItems.slice(dockItems.length - 1).map((item) => {
               const Icon = item.icon
               const isHovered = hoveredItem === item.id
               const isActive = item.isActive
